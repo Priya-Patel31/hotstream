@@ -1,8 +1,8 @@
-import { BsSearch,BsThreeDotsVertical,BsCollectionPlayFill } from "react-icons/bs";
+import { BsSearch,BsThreeDotsVertical,BsCollectionPlayFill,BsBookmarkFill } from "react-icons/bs";
 import {FaBars,FaHome} from "react-icons/fa";
-import {MdExplore} from "react-icons/md"
-import {AiFillLike,AiOutlineHistory} from "react-icons/ai"
+import {MdExplore,MdDelete} from "react-icons/md"
+import {AiFillLike,AiOutlineHistory,AiOutlineClockCircle} from "react-icons/ai"
 import {MdWatchLater} from "react-icons/md"
 
 
-export { BsSearch,FaBars,FaHome,MdExplore,AiFillLike,AiOutlineHistory,BsThreeDotsVertical,BsCollectionPlayFill,MdWatchLater};
+export { BsSearch,FaBars,FaHome,MdExplore,AiFillLike,AiOutlineHistory,BsThreeDotsVertical,BsCollectionPlayFill,MdWatchLater,BsBookmarkFill,MdDelete,AiOutlineClockCircle};

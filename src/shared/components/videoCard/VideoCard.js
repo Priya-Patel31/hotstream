@@ -8,9 +8,12 @@ import {
 import { useExplore } from "../../../context/explore/ExploreContext";
 import ReactPlayer from "react-player";
 import { DropDown } from "../dropDown/Dropdown";
+import { useWatchLater } from "../../../context/watchLater/WatchLaterContext";
 
-export const VideoCard = (product) => {
-  const { _id, title, description, creator, views, releaseDate } = product;
+export const VideoCard = (video) => {
+
+  const { _id, title, description, creator, views, releaseDate } = video;
+  const { updateWatchLater } = useWatchLater();
 
   const options = [
     {
@@ -30,6 +33,12 @@ export const VideoCard = (product) => {
       value: "watchLater",
     },
   ];
+  
+  const addToPlaylist = () => {};
+  const handleDropDown = async(value) => {
+    value === "playlist" ? await addToPlaylist(video) : await updateWatchLater(video);
+    dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
+  };
 
   const { selectedDropdownId, dispatch } = useExplore();
   return (
@@ -58,13 +67,7 @@ export const VideoCard = (product) => {
             }}
           />
           {selectedDropdownId === _id && (
-            <DropDown
-              options={options}
-              onClick={(value) => {
-                console.log(value);
-                dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
-              }}
-            />
+            <DropDown options={options} onClick={handleDropDown} />
           )}
         </div>
         <div className="flex-col">

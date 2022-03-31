@@ -1,3 +1,4 @@
-import HeroImage from "./images/hero-image2.jpg"
 
-export {HeroImage};
+import WatchLaterImage  from "./images/watchlater-image.jpg"
+
+export {WatchLaterImage};

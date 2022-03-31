@@ -4,6 +4,7 @@ import {
   FaHome,
   MdExplore,
   BsCollectionPlayFill,
+  BsBookmarkFill,
   AiFillLike,
   AiOutlineHistory,
 } from "../../../../assets/icons";
@@ -29,7 +30,11 @@ export const Sidebar = () => {
       </NavLink>
       <NavLink to="/like" className={getClassName}>
         <AiFillLike className="mr-1 sidebar-item-icon" />
-        <span className="sidebar-content">Like</span>
+        <span className="sidebar-content">Likes</span>
+      </NavLink>
+      <NavLink to="/watchlater" className={getClassName}>
+        <BsBookmarkFill className="mr-1 sidebar-item-icon" />
+        <span className="sidebar-content">Watch Later</span>
       </NavLink>
       <NavLink to="/history" className={getClassName}>
         <AiOutlineHistory className="mr-1 sidebar-item-icon" />

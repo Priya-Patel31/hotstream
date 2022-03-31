@@ -45,6 +45,9 @@ a{
 .text-grey{
   color:var(--dark-grey);
 }
+.text-white{
+  color:var(--secondary-color)
+}
 .text-red{
   color:var(--red);
 }
