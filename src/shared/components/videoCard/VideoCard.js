@@ -13,7 +13,7 @@ import { useWatchLater } from "../../../context/watchLater/WatchLaterContext";
 export const VideoCard = (video) => {
 
   const { _id, title, description, creator, views, releaseDate } = video;
-  const { updateWatchLater } = useWatchLater();
+  const { updateWatchLater ,isVideoPresentInWatchLater} = useWatchLater();
 
   const options = [
     {
@@ -27,7 +27,7 @@ export const VideoCard = (video) => {
     {
       item: (
         <div>
-          <MdWatchLater className="mr-1" /> Add to watch later
+          <MdWatchLater className="mr-1" /> {!isVideoPresentInWatchLater(_id) ? "Add to watch later":"Remove from watch later"}
         </div>
       ),
       value: "watchLater",

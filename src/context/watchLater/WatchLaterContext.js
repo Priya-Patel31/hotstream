@@ -25,12 +25,14 @@ const WatchLaterContextProvider = ({ children }) => {
     }
   }, []);
 
+  const isVideoPresentInWatchLater = (_id) => {
+    return watchLater.some((vid) => vid._id === _id);
+  };
+
   const updateWatchLater = async (video) => {
-    const isVideoAlreadyPresent =
-      watchLater.some((vid) => vid._id === video._id);
-    console.log(isVideoAlreadyPresent);
+    const isVideoAlreadyPresent = isVideoPresentInWatchLater(video._id);
     if (!isVideoAlreadyPresent) {
-      const { data} = await addToWatchLaterApi(video);
+      const { data } = await addToWatchLaterApi(video);
       dispatch({
         type: "UPDATE_WATCH_LATER",
         payload: { watchLater: data.watchlater },
@@ -45,7 +47,9 @@ const WatchLaterContextProvider = ({ children }) => {
   };
 
   return (
-    <WatchLaterContext.Provider value={{ updateWatchLater, watchLater }}>
+    <WatchLaterContext.Provider
+      value={{ updateWatchLater, watchLater, isVideoPresentInWatchLater }}
+    >
       {children}
     </WatchLaterContext.Provider>
   );
