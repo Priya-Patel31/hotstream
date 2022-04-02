@@ -1,7 +1,9 @@
 import "./header.css";
 import { BsSearch } from "../../../assets/icons";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
+  const navigate = useNavigate();
   return (
     <nav className="header-container">
     
@@ -17,7 +19,7 @@ export const Header = () => {
           className="search-input"
         />
       </form>
-      <button className="login-button">Login</button>
+      <button className="login-button" onClick={()=>{navigate("/login")}}>Login</button>
     </nav>
   );
 };
