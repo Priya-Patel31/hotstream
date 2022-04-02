@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import { Explore } from "./pages/explore/explore";
 import { WithHeader } from "./shared/components/withHeader/WithHeader";
 import Mockman from "./mockMan";
+import { WatchLater } from "./pages/watchLater/WatchLater";
 function App() {
   return (
     <div className="App">
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />}>
             <Route index element={<HeroSection />} />
             <Route path="explore" element={<Explore />} />
+            <Route path="watchlater" element={<WatchLater />} />
           </Route>
         </Route>
       </Routes>
