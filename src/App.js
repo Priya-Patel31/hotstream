@@ -6,6 +6,7 @@ import { Explore } from "./pages/explore/explore";
 import { WithHeader } from "./shared/components/withHeader/WithHeader";
 import Mockman from "./mockMan";
 import { WatchLater } from "./pages/watchLater/WatchLater";
+import { Playlists } from "./pages/playlists/Playlists";
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,7 @@ function App() {
             <Route index element={<HeroSection />} />
             <Route path="explore" element={<Explore />} />
             <Route path="watchlater" element={<WatchLater />} />
+            <Route path="playlists" element={<Playlists />} />
           </Route>
         </Route>
       </Routes>

@@ -1,4 +1,4 @@
-.watchLater-container{
+.playlist-videos-container{
     display: grid;
     grid-template-columns: 30% 70%;
     background-color:var(--dark-color);
@@ -9,11 +9,11 @@
     background-color: var(--dark-color);
     padding:2rem 5%  ;
 }
-.watchlater-image{
+.playlist-videos-image{
     width:100%;
     border-radius:0.5rem;
 }
-.watchLater-creator{
+.playlist-videos-creator{
     font-size: 0.9rem;
 }
 .clock-icon-container{
@@ -29,7 +29,7 @@
 .stacked-list-container li:hover{
     background-color:var(--card-bg-color);
 }
-.watchlater-video-card{
+.playlist-videos-video-card{
     width:8.75rem;
     height:5rem;
     border-radius: 0.2rem;
@@ -42,22 +42,22 @@
     margin: 10% ;
 }
 @media(max-width:550px){
-    .watchLater-container{
+    .playlist-videos-container{
         display: flex;
         flex-direction: column;
     }
-    .watchLater-content-container{
+    .playlist-videos-content-container{
         padding-bottom: 1rem;
         border-bottom: 2px solid var(--dark-grey);
     }
-    .watchlater-list-container{
+    .playlist-videos-list-container{
         margin-top: 1rem;
     }
-    .watchlater-image{
+    .playlist-videos-image{
         width:80%;
         height:15rem;
     }
-    .watchLater-title{
+    .playlist-videos-title{
         font-size: 0.9rem;
     }
 }
