@@ -1,6 +1,8 @@
 import React from "react";
 import "./heroSection.css";
+import {useNavigate} from "react-router-dom"
 export const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <div className="hero-section-container">
       <img
@@ -13,7 +15,7 @@ export const HeroSection = () => {
           IT'S TIME TO <span className="explore-text">EXPLORE</span> <br /> THE
           WORLD
         </h1>
-        <button className="button explore-btn">Explore Now </button>
+        <button className="button explore-btn" onClick={() =>{navigate("/explore")}}>Explore Now </button>
       </div>
     </div>
   );

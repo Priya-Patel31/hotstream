@@ -1,0 +1,57 @@
+.video-card-container {
+  width: 20rem;
+  background-color:var(--card-bg-color);
+  cursor: pointer;
+}
+.video-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+}
+.video-badge {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  background-color: var(--pink-color);
+  color: var(--light-color);
+  padding: 0.3rem;
+}
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.video-card-title {
+  color: var(--light-color);
+  font-size: 1.1rem;
+}
+.video-card-subtitle {
+  font-size: 1rem;
+}
+.video-creator{
+  font-size: 0.8rem;
+}
+.release-date {
+  margin-left: 2rem;
+  font-size: 0.8rem;
+}
+.three-dots-icon {
+  color: var(--light-color);
+  font-size: 1.5rem;
+}
+.content-container{
+      position: relative;
+}
+.video-card-container:hover{
+    transform: scale(1.05);
+}
+@media(max-width:700px){
+    .video-card-container{
+        width:100%;
+    }
+    .video-badge{
+        position: absolute;
+        top:70px;
+        left: 0;
+    }
+    
+}

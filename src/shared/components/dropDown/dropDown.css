@@ -1,0 +1,14 @@
+.dropdown-container {
+  color: var(--dark-color);
+  background-color: var(--secondary-color);
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  z-index: 2;
+}
+.dropdown-option {
+  padding: 0.8rem 0.5rem;
+}
+.dropdown-option:hover {
+  background-color: var(--dropdown-bg-color);
+}

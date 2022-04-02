@@ -12,8 +12,12 @@
 }
 .sidebar-item:hover {
   transform: scale(1.03);
+  color:var(--secondary-color);
 }
-.active {
+.sidebar-content{
+  font-size: 1.1rem;
+}
+.active{
   border-bottom: 2px solid var(--pink-color);
   border-radius: 1rem;
 }
@@ -36,5 +40,8 @@
     .sidebar-item{
         padding: 1rem 0.5rem;
         font-size: 1rem;
+    }
+    .sidebar-content{
+      font-size: 0.8rem;
     }
 }
