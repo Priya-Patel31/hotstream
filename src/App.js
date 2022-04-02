@@ -6,7 +6,9 @@ import { Explore } from "./pages/explore/explore";
 import { WithHeader } from "./shared/components/withHeader/WithHeader";
 import Mockman from "./mockMan";
 import { WatchLater } from "./pages/watchLater/WatchLater";
-function App() {
+import {Login} from "./pages/auth/Login"
+import {Signup} from "./pages/auth/Signup"
+function App() { 
   return (
     <div className="App">
       <Routes>
@@ -18,6 +20,12 @@ function App() {
             <Route path="watchlater" element={<WatchLater />} />
           </Route>
         </Route>
+        {/* {!isUserLoggedIn && ( */}
+        
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+       
+        {/* )} */}
       </Routes>
     </div>
   );
