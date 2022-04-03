@@ -8,24 +8,29 @@ import Mockman from "./mockMan";
 import { WatchLater } from "./pages/watchLater/WatchLater";
 import {Login} from "./pages/auth/Login"
 import {Signup} from "./pages/auth/Signup"
+import { useAuth } from "./context/auth/authContext";
 function App() { 
+  const {isUserLoggedIn} = useAuth();
   return (
     <div className="App">
       <Routes>
+      <Route path="mockApi" element={<Mockman />}></Route>
         <Route path="/" element={<WithHeader />}>
-          <Route path="mockApi" element={<Mockman />}></Route>
+          
           <Route path="/" element={<Home />}>
             <Route index element={<HeroSection />} />
             <Route path="explore" element={<Explore />} />
             <Route path="watchlater" element={<WatchLater />} />
           </Route>
         </Route>
-        {/* {!isUserLoggedIn && ( */}
         
+        {!isUserLoggedIn && (
+         <>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
+       </>
+         )}
        
-        {/* )} */}
       </Routes>
     </div>
   );
