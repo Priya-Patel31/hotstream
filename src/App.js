@@ -9,8 +9,11 @@ import { WatchLater } from "./pages/watchLater/WatchLater";
 import { History } from "./pages/history/History";
 import { Playlists } from "./pages/playlists/Playlists";
 import { Likes } from "./pages/likes/Likes";
+import {Login} from "./pages/auth/Login"
+import {Signup} from "./pages/auth/Signup"
 
-function App() {
+function App() { 
+
   return (
     <div className="App">
       <Routes>
@@ -25,6 +28,12 @@ function App() {
             <Route path="history" element={<History />} />
           </Route>
         </Route>
+        {/* {!isUserLoggedIn && ( */}
+        
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+       
+        {/* )} */}
       </Routes>
     </div>
   );
