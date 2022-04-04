@@ -14,7 +14,7 @@ export async function fetchApi({ url, method, body, propertyName }) {
       //This for future  reference when I will add authentication for now I am sending token directly 
     //   headers: { authorization: user!== null ?user.token:"" },
     });
- 
+    console.log(data);
     if (status === 200 || status === 201) {
       return {
         data: data,

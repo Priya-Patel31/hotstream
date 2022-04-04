@@ -3,17 +3,16 @@ import "./videoCard.css";
 import {
   BsThreeDotsVertical,
   MdWatchLater,
-  BsCollectionPlayFill,
+  BsCollectionPlayFill,AiFillLike
 } from "../../../assets/icons";
 import { useExplore } from "../../../context/explore/ExploreContext";
 import ReactPlayer from "react-player";
 import { DropDown } from "../dropDown/Dropdown";
-import { useWatchLater } from "../../../context/watchLater/WatchLaterContext";
+import { usePlaylistVideos } from "../../../context/playlistVideos/PlaylistVideosContext";
 
 export const VideoCard = (video) => {
-
   const { _id, title, description, creator, views, releaseDate } = video;
-  const { updateWatchLater ,isVideoPresentInWatchLater} = useWatchLater();
+  const { updatePlaylistVideos, isVideoPresent,handleOnPlay } = usePlaylistVideos();
 
   const options = [
     {
@@ -27,29 +26,45 @@ export const VideoCard = (video) => {
     {
       item: (
         <div>
-          <MdWatchLater className="mr-1" /> {!isVideoPresentInWatchLater(_id) ? "Add to watch later":"Remove from watch later"}
+          <MdWatchLater className="mr-1" />{" "}
+          {!isVideoPresent("watchLater", _id)
+            ? "Add to watch later"
+            : "Remove from watch later"}
         </div>
       ),
       value: "watchLater",
     },
+
+    {
+      item: (
+        <div>
+          <AiFillLike className="mr-1" />{" "}
+          {!isVideoPresent("likes", _id)
+            ? "Add to liked videos"
+            : "Remove from liked videos"}
+        </div>
+      ),
+      value: "likes",
+    },
   ];
-  
+
   const addToPlaylist = () => {};
-  const handleDropDown = async(value) => {
-    value === "playlist" ? await addToPlaylist(video) : await updateWatchLater(video);
+  const handleDropDown = async (value) => {
+    value === "playlist"
+      ? await addToPlaylist(video)
+      : await updatePlaylistVideos(value, video);
     dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
   };
 
   const { selectedDropdownId, dispatch } = useExplore();
   return (
-    <div className="video-card-container flex-col">
+    <div className="video-card-container flex-col" >
       <div className="video-wrapper">
         <ReactPlayer
           className="react-player"
           url={`https://www.youtube.com/watch?v=${_id}`}
           width="100%"
-          height="100%"
-          light={false}
+          height="100%" onPlay={()=>handleOnPlay("history",video)}
         />
 
         <div className="video-badge">{views}M views</div>

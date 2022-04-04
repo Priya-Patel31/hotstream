@@ -2,8 +2,14 @@ import { WatchLaterImage } from "../../assets/images";
 import { MdDelete, AiOutlineClockCircle } from "../../assets/icons";
 import ReactPlayer from "react-player";
 import "./playlistVideos.css";
+import { usePlaylistVideos } from "../../context/playlistVideos/PlaylistVideosContext";
 
-export const PlaylistVideos = ({ playlistId, playlistTitle, playlistVideos, deleteVideo}) => {
+export const PlaylistVideos = ({
+  playlistId,
+  playlistTitle,
+  playlistVideos
+}) => {
+  const {updatePlaylistVideos} = usePlaylistVideos();
   return (
     <div className="playlist-videos-container">
       <div className="playlist-videos-content-container">
@@ -13,11 +19,11 @@ export const PlaylistVideos = ({ playlistId, playlistTitle, playlistVideos, dele
           className="playlist-videos-image"
         />
         <div className="text-white text-sm my-2">{playlistTitle}</div>
-        <p className="text-white">{playlistVideos.length} videos</p>
+        <p className="text-white">{playlistVideos?.length} videos</p>
       </div>
       <div className="playlist-videos-list-container my-2">
         <ul className="mb-2 ml-2">
-          {playlistVideos.length === 0 && (
+          {playlistVideos?.length === 0 && (
             <div className="text-white no-videos">
               No videos in this playlist yet😅
             </div>
@@ -53,7 +59,7 @@ export const PlaylistVideos = ({ playlistId, playlistTitle, playlistVideos, dele
                     <MdDelete
                       className="delete-icon text-white"
                       onClick={() => {
-                        deleteVideo(playlistId,video);
+                        updatePlaylistVideos(playlistId,video);
                       }}
                     />
                   </div>

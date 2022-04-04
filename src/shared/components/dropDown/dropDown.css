@@ -4,7 +4,7 @@
   position: absolute;
   top: 40px;
   right: 10px;
-  z-index: 2;
+  z-index: 5;
 }
 .dropdown-option {
   padding: 0.8rem 0.5rem;

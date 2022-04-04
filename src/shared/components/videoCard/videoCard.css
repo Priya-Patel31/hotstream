@@ -41,9 +41,7 @@
 .content-container{
       position: relative;
 }
-.video-card-container:hover{
-    transform: scale(1.05);
-}
+
 @media(max-width:700px){
     .video-card-container{
         width:100%;
