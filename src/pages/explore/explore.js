@@ -13,7 +13,7 @@ export const Explore = () => {
         payload: { selectedDropdownId: null },
       });
     };
-  }, []);
+  }, [dispatch]);
   return (
     <div className="explore-container">
       <div className="flex-col">
