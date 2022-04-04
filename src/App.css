@@ -34,6 +34,7 @@
 body{
   background-color: var(--dark-color);
 }
+
 .list-style-none{
   list-style: none;
 }

@@ -11,14 +11,15 @@ import { Playlists } from "./pages/playlists/Playlists";
 import { Likes } from "./pages/likes/Likes";
 import {Login} from "./pages/auth/Login"
 import {Signup} from "./pages/auth/Signup"
-
+import { useAuth } from "./context/auth/authContext";
 function App() { 
-
+  const {isUserLoggedIn} = useAuth();
   return (
     <div className="App">
       <Routes>
+      <Route path="mockApi" element={<Mockman />}></Route>
         <Route path="/" element={<WithHeader />}>
-          <Route path="mockApi" element={<Mockman />}></Route>
+          
           <Route path="/" element={<Home />}>
             <Route index element={<HeroSection />} />
             <Route path="explore" element={<Explore />} />
@@ -28,12 +29,14 @@ function App() {
             <Route path="history" element={<History />} />
           </Route>
         </Route>
-        {/* {!isUserLoggedIn && ( */}
         
+        {!isUserLoggedIn && (
+         <>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
+       </>
+         )}
        
-        {/* )} */}
       </Routes>
     </div>
   );

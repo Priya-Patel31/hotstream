@@ -15,7 +15,7 @@
   transform-style: preserve-3d;
   box-shadow: 0 5px 20px rgba(245, 232, 232, 0.3);
   z-index: 2;
-  margin: 4rem auto;
+  margin: 2.5rem auto;
 }
 .authentication-image-container,
 .form-components-container {
