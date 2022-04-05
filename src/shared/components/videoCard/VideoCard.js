@@ -9,11 +9,12 @@ import { useExplore } from "../../../context/explore/ExploreContext";
 import ReactPlayer from "react-player";
 import { DropDown } from "../dropDown/Dropdown";
 import { usePlaylistVideos } from "../../../context/playlistVideos/PlaylistVideosContext";
+import { useModal } from "../../../context/modal/modalContext";
 
 export const VideoCard = (video) => {
   const { _id, title, description, creator, views, releaseDate } = video;
-  const { updatePlaylistVideos, isVideoPresent,handleOnPlay } = usePlaylistVideos();
-
+  const { isVideoPresent,handleOnPlay } = usePlaylistVideos();
+  const { showModal, setShowModal,setClickedVideos,clickedVideos} = useModal();
   const options = [
     {
       item: (
@@ -48,11 +49,13 @@ export const VideoCard = (video) => {
     },
   ];
 
-  const addToPlaylist = () => {};
   const handleDropDown = async (value) => {
-    value === "playlist"
-      ? await addToPlaylist(video)
-      : await updatePlaylistVideos(value, video);
+    
+    if(value === "playlist") {
+      setShowModal(!showModal);
+      setClickedVideos(video)
+    }
+      // : await updatePlaylistVideos(value, video);
     dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
   };
 

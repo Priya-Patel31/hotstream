@@ -1,15 +1,51 @@
 import React, { useState } from "react";
 import { AiOutlineClose, BsCollectionPlayFill } from "../../../assets/icons";
 import { useModal } from "../../../context/modal/modalContext";
+import { usePlaylist } from "../../../context/playlist/playlistContext";
+import { addVideoToPlaylistApi, createPlaylistApi } from "../../../services/playlist_services";
 import "./modal.css";
 
 export const Modal = () => {
-  const { showModal, setShowModal } = useModal();
+  const { showModal, setShowModal, clickedVideos } =
+    useModal();
   const [createNewPlaylist, setCreateNewPlaylist] = useState(false);
-  const [createPlaylist, setCreatePlaylist] = useState(false);
+  const [title, setTitle] = useState("");
+
+  const { state, dispatch } = usePlaylist();
+console.log(state);
+  const handleCreatePlaylist = async (title, description) => {
+    const { data, success } = await createPlaylistApi({ title, description });
+    console.log("__________",data.playlists)
+    if (success) {
+      dispatch({
+        type: "UPDATE_PLAYLIST",
+        payload: { playlists: data.playlists },
+      });
+      setCreateNewPlaylist(!createNewPlaylist);
+    }
+  };
+
+  const handlePlaylistItemClicked = async (playlist) =>{
+    console.log(playlist);
+    console.log(state.playlists);
+   const isVideoAlredyPresent = (state?.playlists).some((video) =>{
+      return video._id === clickedVideos._id
+    })
+    console.log(isVideoAlredyPresent);
+    if(!isVideoAlredyPresent){ 
+       const {data,success} = await addVideoToPlaylistApi(playlist._id,clickedVideos);
+       console.log(data);
+       if(success){
+         dispatch({type:"ADD_VIDEOS",payload:{playlist: data.playlist}})
+         return true;
+       }
+       return false;
+    }
+  }
+
   return (
     showModal && (
-      <div className="wrapper">
+      <div className="modal-wrapper">
         <div className="hotstream-modal-container">
           <div className="flex-row justify-between playlist-modal-container p-2">
             <p className="font-semibold hotstream-modal-heading text-white">
@@ -22,34 +58,59 @@ export const Modal = () => {
               }}
             />
           </div>
-          <div className="flex-row pt-2 pb-1 px-1">
+          <div className="flex-row pt-2 pb-1 px-1 playlists-content-container">
             {createNewPlaylist ? (
-              <div className="flex-col px-1">
+              <div className="flex-col playlist-content">
                 <p className="text-white mb-1">Playlist Name</p>
                 <input
                   type="text"
                   placeholder="Name"
                   className="mb-2 playlist-input"
+                  value={title}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
                 />
                 <button
                   className="button playlist-button font-semibold"
-                  onClick={() => { }}
+                  onClick={() => {
+                    handleCreatePlaylist(title, "");
+                    setTitle("");
+                  }}
                 >
                   Create Playlist
                 </button>
               </div>
             ) : (
-              <div className="flex-row px-1">
-                <BsCollectionPlayFill className="text-white" />
-                <p
-                  className="ml-1 text-white cursor-pointer"
-                  onClick={() => {
-            
-                    setCreateNewPlaylist(!createNewPlaylist);
-                  }}
+              <div className="w-100 mb-2">
+                <div
+                  className={
+                    state.playlists.length === 0
+                      ? ""
+                      : "playlists-container mb-1"
+                  }
                 >
-                  Create New Playlist
-                </p>
+                  {state.playlists?.map((playlist) => {
+                    return (
+                      <div className=" flex-row  align-center text-white mb-1">
+                        <input type="checkbox" className="mr-1" onChange={()=>{handlePlaylistItemClicked(playlist)}} />
+                        <p>{playlist?.title}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="flex-row">
+                  <BsCollectionPlayFill className="text-white" />
+                  <p
+                    className="ml-1 text-white cursor-pointer"
+                    onClick={() => {
+                      setCreateNewPlaylist(!createNewPlaylist);
+
+                    }}
+                  >
+                    Create New Playlist
+                  </p>
+                </div>
               </div>
             )}
           </div>

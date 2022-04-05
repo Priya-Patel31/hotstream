@@ -1,11 +1,14 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState,useReducer } from "react";
 
 const ModalContext = createContext();
 
 const ModalContextProvider = ({ children }) => {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [clickedVideos, setClickedVideos] = useState({});
+  
+  
   return (
+   
     <ModalContext.Provider
       value={{ showModal, setShowModal, clickedVideos, setClickedVideos }}
     >

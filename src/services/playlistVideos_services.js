@@ -36,16 +36,12 @@ export const playlistVideosFetchApi = async () => {
       url: "/api/user/history",
       method: "get",
     });
-    const promise4 = await fetchApi({
-      url: "/api/user/playlists",
-      method: "get",
-    });
+    
 
     const response = await Promise.all([
       promise1,
       promise2,
       promise3,
-      promise4,
     ]);
     console.log(response);
     // if (response.some((promise) => promise.success === false)) {
@@ -55,8 +51,8 @@ export const playlistVideosFetchApi = async () => {
       data: {
         watchLater: response[0].data.watchlater,
         likes: response[1].data.likes,
-        history: response[2].data.history,
-        playlists: response[3].playlists,
+        history: response[2].data.history
+        
       },
       success: true,
       message: "Fetched successfully",
@@ -107,26 +103,3 @@ export const deleteAllVideosFromHistoryApi = async () => {
   });
 };
 
-export const createPlaylistApi = async ({ title, description }) => {
-  return await fetchApi({
-    url: "/api/user/playlists",
-    method: "post",
-    body: {
-      playlist: { title, description },
-    },
-    propertyName: "playlist",
-  });
-};
-export const addVideoToPlaylistApi = async (video) => {
-  return await fetchApi({
-    url: `/api/user/playlists/${video._id}`,
-    method: "post",
-    body: { video },
-  });
-};
-export const deleteVideoFromPlaylistApi = async (_id) => {
-  return await fetchApi({
-    url: `/api/user/playlists/${_id}`,
-    method: "delete",
-  });
-};

@@ -140,3 +140,6 @@ a:hover{
   font-size:0.8rem;
 
 }
+.border-bottom{
+  border-bottom:4px solid var(--secondary-color)
+}

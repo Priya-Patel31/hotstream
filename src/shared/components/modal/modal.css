@@ -3,7 +3,7 @@
   min-height: 130px;
   background-color: #1e1e1e;
 }
-.wrapper {
+.modal-wrapper {
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -32,4 +32,11 @@
 }
 .hotstream-cross-icon:hover{
     background-color: var(--dark-color);
+}
+.playlists-container{
+  border-bottom: 4px solid var(--secondary-color);
+  
+}
+.playlists-content-container,.playlist-content{
+  width: 100%;
 }

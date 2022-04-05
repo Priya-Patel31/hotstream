@@ -17,7 +17,7 @@ const intialState = {
   status: "IDLE",
   watchLater: [],
   history: [],
-  likes: [],
+  likes: []
 };
 const PlaylistVideosContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, intialState);
@@ -33,7 +33,6 @@ const PlaylistVideosContextProvider = ({ children }) => {
             watchLater: data.watchLater,
             history: data.history,
             likes: data.likes,
-            playlists: data.playlists
           },
         });
       }
