@@ -86,7 +86,7 @@ export const Signup = () => {
           </li>
           <li className="list-style-none">
             <div className="password-field-container">
-              <label className="text-xs" htmlFor="password">
+              <label className="text-xs text-white" htmlFor="password">
                 Password
               </label>
               <input

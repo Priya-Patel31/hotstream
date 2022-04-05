@@ -18,6 +18,7 @@
   --card-bg-color:rgba(22, 18, 18, 0.933);
   --dark-color:black;
   --dropdown-bg-color:rgb(207, 201, 201);
+  --modal-button-bg:rgba(0, 0, 0, 0.6);
   --toastify-toast-background: black;
   --toastify-text-color-info: #fff;
   --toastify-text-color-success: rgb(89, 222, 18);
@@ -62,6 +63,9 @@ a{
 }
 .text-center{
   text-align: center;
+}
+.cursor-pointer{
+  cursor: pointer;
 }
 ul{
   margin:0;

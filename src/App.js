@@ -12,12 +12,15 @@ import { Likes } from "./pages/likes/Likes";
 import {Login} from "./pages/auth/Login"
 import {Signup} from "./pages/auth/Signup"
 import { useAuth } from "./context/auth/authContext";
+import { Modal } from "./shared/components/modal/Modal";
 function App() { 
   const {isUserLoggedIn} = useAuth();
   return (
     <div className="App">
+       <Modal/>
       <Routes>
       <Route path="mockApi" element={<Mockman />}></Route>
+     
         <Route path="/" element={<WithHeader />}>
           
           <Route path="/" element={<Home />}>
