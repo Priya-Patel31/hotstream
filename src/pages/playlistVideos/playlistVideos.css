@@ -1,63 +1,63 @@
-.playlist-videos-container{
-    display: grid;
-    grid-template-columns: 30% 70%;
-    background-color:var(--dark-color);
-    padding: 2rem 1rem;
-    justify-content: center;
-    width: 100%;
-    min-height: 85vh;
-    background-color: var(--dark-color);
-    padding:2rem 5%  ;
+.playlist-videos-container {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  background-color: var(--dark-color);
+  padding: 2rem 1rem;
+  justify-content: center;
+  width: 100%;
+  min-height: 85vh;
+  background-color: var(--dark-color);
+  padding: 2rem 5%;
 }
-.playlist-videos-image{
-    width:100%;
-    border-radius:0.5rem;
+.playlist-videos-image {
+  width: 100%;
+  border-radius: 0.5rem;
 }
-.playlist-videos-creator{
+.playlist-videos-creator {
+  font-size: 0.9rem;
+}
+.clock-icon-container {
+  font-size: 0.8rem;
+}
+.stacked-list-item {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: none;
+  background-color: var(--card-bg-color);
+}
+.stacked-list-container li:hover {
+  background-color: var(--card-bg-color);
+}
+.playlist-videos-video-card {
+  width: 8.75rem;
+  height: 5rem;
+  border-radius: 0.2rem;
+}
+.delete-icon {
+  font-size: 1.3rem;
+}
+.no-videos {
+  font-size: 1.5rem;
+  margin: 10%;
+}
+@media (max-width: 550px) {
+  .playlist-videos-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .playlist-videos-content-container {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--dark-grey);
+  }
+  .playlist-videos-list-container {
+    margin-top: 1rem;
+  }
+  .playlist-videos-image {
+    width: 80%;
+    height: 15rem;
+  }
+  .playlist-videos-title {
     font-size: 0.9rem;
-}
-.clock-icon-container{
-    font-size:0.8rem;
-}
-.stacked-list-item{
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    margin-bottom: 0.5rem;
-    border:none;
-    background-color: var(--card-bg-color); 
-}
-.stacked-list-container li:hover{
-    background-color:var(--card-bg-color);
-}
-.playlist-videos-video-card{
-    width:8.75rem;
-    height:5rem;
-    border-radius: 0.2rem;
-}
-.delete-icon{
-    font-size: 1.3rem;
-}
-.no-videos{
-    font-size: 1.5rem;
-    margin: 10% ;
-}
-@media(max-width:550px){
-    .playlist-videos-container{
-        display: flex;
-        flex-direction: column;
-    }
-    .playlist-videos-content-container{
-        padding-bottom: 1rem;
-        border-bottom: 2px solid var(--dark-grey);
-    }
-    .playlist-videos-list-container{
-        margin-top: 1rem;
-    }
-    .playlist-videos-image{
-        width:80%;
-        height:15rem;
-    }
-    .playlist-videos-title{
-        font-size: 0.9rem;
-    }
+  }
 }

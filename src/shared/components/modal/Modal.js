@@ -2,20 +2,27 @@ import React, { useState } from "react";
 import { AiOutlineClose, BsCollectionPlayFill } from "../../../assets/icons";
 import { useModal } from "../../../context/modal/modalContext";
 import { usePlaylist } from "../../../context/playlist/playlistContext";
-import { addVideoToPlaylistApi, createPlaylistApi } from "../../../services/playlist_services";
+import {
+  addVideoToPlaylistApi,
+  createPlaylistApi,
+} from "../../../services/playlist_services";
 import "./modal.css";
 
 export const Modal = () => {
-  const { showModal, setShowModal, clickedVideos } =
-    useModal();
+  const { showModal, setShowModal, clickedVideos } = useModal();
   const [createNewPlaylist, setCreateNewPlaylist] = useState(false);
   const [title, setTitle] = useState("");
 
   const { state, dispatch } = usePlaylist();
-console.log(state);
+
   const handleCreatePlaylist = async (title, description) => {
+    if (title === "") {
+      //Future reference
+      // toast.error("Name could not be empty");
+      return ;
+    }
+
     const { data, success } = await createPlaylistApi({ title, description });
-    console.log("__________",data.playlists)
     if (success) {
       dispatch({
         type: "UPDATE_PLAYLIST",
@@ -25,23 +32,27 @@ console.log(state);
     }
   };
 
-  const handlePlaylistItemClicked = async (playlist) =>{
+  const handlePlaylistItemClicked = async (playlist) => {
     console.log(playlist);
     console.log(state.playlists);
-   const isVideoAlredyPresent = (state?.playlists).some((video) =>{
-      return video._id === clickedVideos._id
-    })
+    const isVideoAlredyPresent = (state?.playlists).some((video) => {
+      return video._id === clickedVideos._id;
+    });
     console.log(isVideoAlredyPresent);
-    if(!isVideoAlredyPresent){ 
-       const {data,success} = await addVideoToPlaylistApi(playlist._id,clickedVideos);
-       console.log(data);
-       if(success){
-         dispatch({type:"ADD_VIDEOS",payload:{playlist: data.playlist}})
-         return true;
-       }
-       return false;
+    if (!isVideoAlredyPresent) {
+      const { data, success } = await addVideoToPlaylistApi(
+        playlist._id,
+        clickedVideos
+      );
+      console.log(data);
+      if (success) {
+        dispatch({ type: "ADD_VIDEOS", payload: { playlist: data.playlist } });
+        return true;
+      }
+      return false;
     }
-  }
+  };
+
 
   return (
     showModal && (
@@ -93,7 +104,13 @@ console.log(state);
                   {state.playlists?.map((playlist) => {
                     return (
                       <div className=" flex-row  align-center text-white mb-1">
-                        <input type="checkbox" className="mr-1" onChange={()=>{handlePlaylistItemClicked(playlist)}} />
+                        <input
+                          type="checkbox"
+                          className="mr-1"
+                          onChange={() => {
+                            handlePlaylistItemClicked(playlist);
+                          }}
+                        />
                         <p>{playlist?.title}</p>
                       </div>
                     );
@@ -105,7 +122,6 @@ console.log(state);
                     className="ml-1 text-white cursor-pointer"
                     onClick={() => {
                       setCreateNewPlaylist(!createNewPlaylist);
-
                     }}
                   >
                     Create New Playlist

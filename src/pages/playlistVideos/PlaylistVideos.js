@@ -1,15 +1,33 @@
 import { WatchLaterImage } from "../../assets/images";
 import { MdDelete, AiOutlineClockCircle } from "../../assets/icons";
 import ReactPlayer from "react-player";
+import { useNavigate, useParams } from "react-router";
 import "./playlistVideos.css";
 import { usePlaylistVideos } from "../../context/playlistVideos/PlaylistVideosContext";
+import { usePlaylist } from "../../context/playlist/playlistContext";
 
 export const PlaylistVideos = ({
-  playlistId,
+  playlistId = null,
   playlistTitle,
-  playlistVideos
+  playlistVideos,
+  isFromPlaylist = false,
 }) => {
-  const {updatePlaylistVideos} = usePlaylistVideos();
+  const { updatePlaylistVideos } = usePlaylistVideos();
+  const { state, deleteVideosFromPlaylist, deletePlaylist } = usePlaylist();
+  const params = useParams();
+  const navigate = useNavigate();
+  if (playlistId === null) {
+    isFromPlaylist = true;
+    const playlist = state.playlists?.find((playlist) => {
+      return playlist._id === params.playlistId;
+    });
+    if (playlist) {
+      playlistId = playlist._id;
+      playlistTitle = playlist.title;
+      playlistVideos = playlist.videos;
+    }
+  }
+  console.log(isFromPlaylist);
   return (
     <div className="playlist-videos-container">
       <div className="playlist-videos-content-container">
@@ -19,7 +37,18 @@ export const PlaylistVideos = ({
           className="playlist-videos-image"
         />
         <div className="text-white text-sm my-2">{playlistTitle}</div>
-        <p className="text-white">{playlistVideos?.length} videos</p>
+        <div className="flex-row justify-between align-center">
+          <p className="text-white flex-row">{playlistVideos?.length} videos</p>
+          {isFromPlaylist &&
+            <MdDelete
+              className="text-white text-sm"
+              onClick={() => {
+                deletePlaylist(playlistId);
+                navigate(-1);
+              }}
+            />
+          }
+        </div>
       </div>
       <div className="playlist-videos-list-container my-2">
         <ul className="mb-2 ml-2">
@@ -28,9 +57,9 @@ export const PlaylistVideos = ({
               No videos in this playlist yet😅
             </div>
           )}
-          {playlistVideos.map((video) => {
+          {playlistVideos?.map((video) => {
             return (
-              <li key={video._id} className="stacked-list-item">
+              <li key={video?._id} className="stacked-list-item">
                 <div className="flex-row justify-between">
                   <div className="flex-row justify-between">
                     <div className="playlist-videos-video-card">
@@ -58,8 +87,12 @@ export const PlaylistVideos = ({
                   <div>
                     <MdDelete
                       className="delete-icon text-white"
-                      onClick={() => {
-                        updatePlaylistVideos(playlistId,video);
+                      onClick={async () => {
+                        if (isFromPlaylist) {
+                          await deleteVideosFromPlaylist(playlistId, video._id);
+                        } else {
+                          updatePlaylistVideos(playlistId, video);
+                        }
                       }}
                     />
                   </div>

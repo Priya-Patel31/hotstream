@@ -9,20 +9,20 @@ import { WatchLater } from "./pages/watchLater/WatchLater";
 import { History } from "./pages/history/History";
 import { Playlists } from "./pages/playlists/Playlists";
 import { Likes } from "./pages/likes/Likes";
-import {Login} from "./pages/auth/Login"
-import {Signup} from "./pages/auth/Signup"
+import { Login } from "./pages/auth/Login";
+import { Signup } from "./pages/auth/Signup";
 import { useAuth } from "./context/auth/authContext";
 import { Modal } from "./shared/components/modal/Modal";
-function App() { 
-  const {isUserLoggedIn} = useAuth();
+import { PlaylistVideos } from "./pages/playlistVideos/PlaylistVideos";
+function App() {
+  const { isUserLoggedIn } = useAuth();
   return (
     <div className="App">
-       <Modal/>
+      <Modal />
       <Routes>
-      <Route path="mockApi" element={<Mockman />}></Route>
-     
+        <Route path="mockApi" element={<Mockman />}></Route>
+
         <Route path="/" element={<WithHeader />}>
-          
           <Route path="/" element={<Home />}>
             <Route index element={<HeroSection />} />
             <Route path="explore" element={<Explore />} />
@@ -30,16 +30,16 @@ function App() {
             <Route path="playlists" element={<Playlists />} />
             <Route path="likes" element={<Likes />} />
             <Route path="history" element={<History />} />
+            <Route path="playlists/:playlistId" element={<PlaylistVideos />} />
           </Route>
         </Route>
-        
+
         {!isUserLoggedIn && (
-         <>
+          <>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
-       </>
-         )}
-       
+          </>
+        )}
       </Routes>
     </div>
   );

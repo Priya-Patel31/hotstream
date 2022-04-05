@@ -1,9 +1,10 @@
 import { Playlist } from "../../assets/images";
+import { Link } from "react-router-dom";
 import { usePlaylist } from "../../context/playlist/playlistContext";
 import "./playlists.css";
 
 export const Playlists = () => {
-  const { state} = usePlaylist();
+  const { state } = usePlaylist();
   return (
     <div className="playlists-outer-container">
       <div className="playlists-inner-container flex-col align-center">
@@ -11,12 +12,15 @@ export const Playlists = () => {
         <div className="playlists-wrapper">
           {state.playlists?.map((playlist) => {
             return (
-              <div className="playlist-container">
+              <Link
+                to={`/playlists/${playlist._id}`}
+                className="playlist-container"
+              >
                 <img src={Playlist} alt="playlist" className="playlist-image" />
-                <div className="text-white text-center">
+                <div className="text-white text-center playlist-title-container">
                   {playlist?.title}
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

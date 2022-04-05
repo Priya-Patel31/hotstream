@@ -3,7 +3,8 @@ import "./videoCard.css";
 import {
   BsThreeDotsVertical,
   MdWatchLater,
-  BsCollectionPlayFill,AiFillLike
+  BsCollectionPlayFill,
+  AiFillLike,
 } from "../../../assets/icons";
 import { useExplore } from "../../../context/explore/ExploreContext";
 import ReactPlayer from "react-player";
@@ -13,8 +14,10 @@ import { useModal } from "../../../context/modal/modalContext";
 
 export const VideoCard = (video) => {
   const { _id, title, description, creator, views, releaseDate } = video;
-  const { isVideoPresent,handleOnPlay } = usePlaylistVideos();
-  const { showModal, setShowModal,setClickedVideos,clickedVideos} = useModal();
+  const { isVideoPresent, handleOnPlay, updatePlaylistVideos } =
+    usePlaylistVideos();
+  const { showModal, setShowModal, setClickedVideos } = useModal();
+
   const options = [
     {
       item: (
@@ -50,24 +53,24 @@ export const VideoCard = (video) => {
   ];
 
   const handleDropDown = async (value) => {
-    
-    if(value === "playlist") {
+    if (value === "playlist") {
       setShowModal(!showModal);
-      setClickedVideos(video)
+      setClickedVideos(video);
+    } else {
+      await updatePlaylistVideos(value, video);
+      dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
     }
-      // : await updatePlaylistVideos(value, video);
-    dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
   };
-
   const { selectedDropdownId, dispatch } = useExplore();
   return (
-    <div className="video-card-container flex-col" >
+    <div className="video-card-container flex-col">
       <div className="video-wrapper">
         <ReactPlayer
           className="react-player"
           url={`https://www.youtube.com/watch?v=${_id}`}
           width="100%"
-          height="100%" onPlay={()=>handleOnPlay("history",video)}
+          height="100%"
+          onPlay={() => handleOnPlay("history", video)}
         />
 
         <div className="video-badge">{views}M views</div>
