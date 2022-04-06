@@ -24,6 +24,7 @@ export const Modal = () => {
     }
 
     const { data, success } = await createPlaylistApi({ title, description });
+    console.log(data);
     if (success) {
       dispatch({
         type: "UPDATE_PLAYLIST",
