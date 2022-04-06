@@ -11,7 +11,7 @@ export const reducer = (state, action) => {
       updatedPlaylists[findPlaylistIndex] = action.payload.playlist;
       return { ...state, playlists: updatedPlaylists };
     }
-    
+
     case "ADD_VIDEOS":
       return {
         ...state,

@@ -12,7 +12,7 @@ export const PlaylistVideos = ({
   playlistVideos,
   isFromPlaylist = false,
 }) => {
-  const { updatePlaylistVideos } = usePlaylistVideos();
+  const { updatePlaylistVideos,deleteAllVideosFromHistory } = usePlaylistVideos();
   const { state, deleteVideosFromPlaylist, deletePlaylist } = usePlaylist();
   const params = useParams();
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export const PlaylistVideos = ({
       playlistVideos = playlist.videos;
     }
   }
-  console.log(isFromPlaylist);
+  console.log(playlistId);
   return (
     <div className="playlist-videos-container">
       <div className="playlist-videos-content-container">
@@ -39,7 +39,7 @@ export const PlaylistVideos = ({
         <div className="text-white text-sm my-2">{playlistTitle}</div>
         <div className="flex-row justify-between align-center">
           <p className="text-white flex-row">{playlistVideos?.length} videos</p>
-          {isFromPlaylist &&
+          {isFromPlaylist && (
             <MdDelete
               className="text-white text-sm"
               onClick={() => {
@@ -47,7 +47,16 @@ export const PlaylistVideos = ({
                 navigate(-1);
               }}
             />
-          }
+          )}
+          {playlistId === "history" && (
+            
+            <button className="button primary-button-pink" onClick={()=>{
+              deleteAllVideosFromHistory();
+            }}>
+              Clear All
+            </button>
+       
+          )}
         </div>
       </div>
       <div className="playlist-videos-list-container my-2">

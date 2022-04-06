@@ -5,21 +5,23 @@ import { usePlaylist } from "../../../context/playlist/playlistContext";
 import {
   addVideoToPlaylistApi,
   createPlaylistApi,
+  deleteVideosFromPlaylistApi,
 } from "../../../services/playlist_services";
 import "./modal.css";
 
 export const Modal = () => {
-  const { showModal, setShowModal, clickedVideos } = useModal();
+  const { showModal, setShowModal, clickedVideos, selectedVideoId } =
+    useModal();
   const [createNewPlaylist, setCreateNewPlaylist] = useState(false);
   const [title, setTitle] = useState("");
 
-  const { state, dispatch } = usePlaylist();
+  const { state, dispatch, deleteVideosFromPlaylist } = usePlaylist();
 
   const handleCreatePlaylist = async (title, description) => {
     if (title === "") {
       //Future reference
       // toast.error("Name could not be empty");
-      return ;
+      return;
     }
 
     const { data, success } = await createPlaylistApi({ title, description });
@@ -32,27 +34,24 @@ export const Modal = () => {
     }
   };
 
-  const handlePlaylistItemClicked = async (playlist) => {
-    console.log(playlist);
-    console.log(state.playlists);
-    const isVideoAlredyPresent = (state?.playlists).some((video) => {
-      return video._id === clickedVideos._id;
-    });
-    console.log(isVideoAlredyPresent);
-    if (!isVideoAlredyPresent) {
+  const handlePlaylistItemClicked = async (e, playlist) => {
+    if (e.target.checked) {
       const { data, success } = await addVideoToPlaylistApi(
         playlist._id,
         clickedVideos
       );
-      console.log(data);
       if (success) {
         dispatch({ type: "ADD_VIDEOS", payload: { playlist: data.playlist } });
         return true;
       }
       return false;
+    } else {
+      const { data, success } = deleteVideosFromPlaylist(
+        playlist._id,
+        clickedVideos._id
+      );
     }
   };
-
 
   return (
     showModal && (
@@ -107,8 +106,11 @@ export const Modal = () => {
                         <input
                           type="checkbox"
                           className="mr-1"
-                          onChange={() => {
-                            handlePlaylistItemClicked(playlist);
+                          checked={playlist.videos.some((video) => {
+                            return video._id === selectedVideoId;
+                          })}
+                          onChange={(e) => {
+                            handlePlaylistItemClicked(e, playlist);
                           }}
                         />
                         <p>{playlist?.title}</p>

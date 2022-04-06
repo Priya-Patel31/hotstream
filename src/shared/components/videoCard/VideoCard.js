@@ -10,6 +10,7 @@ import { useExplore } from "../../../context/explore/ExploreContext";
 import ReactPlayer from "react-player";
 import { DropDown } from "../dropDown/Dropdown";
 import { usePlaylistVideos } from "../../../context/playlistVideos/PlaylistVideosContext";
+import {Modal} from "../../../shared/components/modal/Modal"
 import { useModal } from "../../../context/modal/modalContext";
 
 export const VideoCard = (video) => {
@@ -61,9 +62,12 @@ export const VideoCard = (video) => {
       dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
     }
   };
+
   const { selectedDropdownId, dispatch } = useExplore();
+  const {setSelectedVideoId} = useModal();
   return (
     <div className="video-card-container flex-col">
+      <Modal videoId = {_id}/>
       <div className="video-wrapper">
         <ReactPlayer
           className="react-player"
@@ -81,6 +85,7 @@ export const VideoCard = (video) => {
           <BsThreeDotsVertical
             className="three-dots-icon"
             onClick={() => {
+              setSelectedVideoId(_id);
               dispatch({
                 type: "UPDATE_DROPDOWN",
                 payload: { id: _id === selectedDropdownId ? null : _id },

@@ -27,8 +27,11 @@ const PlaylistContextProvider = ({ children }) => {
     })();
   }, [dispatch]);
 
-  const deleteVideosFromPlaylist = async (playlistId,videoId) => {
-    const { data, success } = await deleteVideosFromPlaylistApi(playlistId,videoId);
+  const deleteVideosFromPlaylist = async (playlistId, videoId) => {
+    const { data, success } = await deleteVideosFromPlaylistApi(
+      playlistId,
+      videoId
+    );
     if (success) {
       dispatch({
         type: "UPDATE_PLAYLIST_VIDEOS",
@@ -38,17 +41,20 @@ const PlaylistContextProvider = ({ children }) => {
     }
     return false;
   };
-  const deletePlaylist = async(playlistId) =>{
-    const {data,success} = await deletePlaylistFromApi(playlistId);
-    if(success){
-      dispatch({type:"UPDATE_PLAYLIST",payload:data.playlist})
-      return true
+  const deletePlaylist = async (playlistId) => {
+    const { data, success } = await deletePlaylistFromApi(playlistId);
+    if (success) {
+      dispatch({
+        type: "UPDATE_PLAYLIST",
+        payload: { playlists: data.playlists },
+      });
+      return true;
     }
     return false;
-  }
+  };
   return (
     <PlaylistContext.Provider
-      value={{ state, dispatch, deleteVideosFromPlaylist ,deletePlaylist}}
+      value={{ state, dispatch, deleteVideosFromPlaylist, deletePlaylist }}
     >
       {children}
     </PlaylistContext.Provider>

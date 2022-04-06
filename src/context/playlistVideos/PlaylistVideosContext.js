@@ -50,8 +50,8 @@ const PlaylistVideosContextProvider = ({ children }) => {
     }
   };
 
-  const deleteAllVideosFromHistory = () => {
-    const { data, success } = deleteAllVideosFromHistoryApi();
+  const deleteAllVideosFromHistory = async() => {
+    const { data, success } = await deleteAllVideosFromHistoryApi();
     if (success) {
       dispatch({
         type: "UPDATE_PLAYLIST_VIDEOS",

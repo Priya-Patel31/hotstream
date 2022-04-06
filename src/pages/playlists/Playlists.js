@@ -7,7 +7,6 @@ import { EmptyList } from "../../shared/components/emptyList/EmptyList";
 export const Playlists = () => {
   const { state } = usePlaylist();
   const playlistsVideo = state.playlists;
-  console.log(playlistsVideo.length);
   return (
     <div className="playlists-outer-container">
       <div className="playlists-inner-container flex-col align-center">
