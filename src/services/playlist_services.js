@@ -37,8 +37,6 @@ export const deletePlaylistFromApi = async (playlistId) => {
 };
 
 export const deleteVideosFromPlaylistApi = async (playlistId, videoId) => {
-  console.log(playlistId);
-  console.log(videoId);
   return await fetchApi({
     url: `/api/user/playlists/${playlistId}/${videoId}`,
     method: "delete"

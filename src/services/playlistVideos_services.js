@@ -43,10 +43,7 @@ export const playlistVideosFetchApi = async () => {
       promise2,
       promise3,
     ]);
-    console.log(response);
-    // if (response.some((promise) => promise.success === false)) {
-    //   throw Error("error occured");
-    // }
+  
     return {
       data: {
         watchLater: response[0].data.watchlater,
