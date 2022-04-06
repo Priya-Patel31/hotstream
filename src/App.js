@@ -14,6 +14,7 @@ import { Signup } from "./pages/auth/Signup";
 import { useAuth } from "./context/auth/authContext";
 import { Modal } from "./shared/components/modal/Modal";
 import { PlaylistVideos } from "./pages/playlistVideos/PlaylistVideos";
+import { PageNotFound } from "./shared/components/404NotFound/pageNotFound";
 function App() {
   const { isUserLoggedIn } = useAuth();
   return (
@@ -21,9 +22,9 @@ function App() {
       <Modal />
       <Routes>
         <Route path="mockApi" element={<Mockman />}></Route>
-
         <Route path="/" element={<WithHeader />}>
           <Route path="/" element={<Home />}>
+            <Route path="*" element={<PageNotFound />} />
             <Route index element={<HeroSection />} />
             <Route path="explore" element={<Explore />} />
             <Route path="watchlater" element={<WatchLater />} />

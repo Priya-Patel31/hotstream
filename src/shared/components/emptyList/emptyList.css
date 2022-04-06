@@ -1,0 +1,14 @@
+.emptyCart-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.empty-cart-image{
+    width:80vh;
+    height:400px;
+}
+@media only screen and(max-width:450px) {
+    .empty-cart-image{
+        width:40vh;
+    }   
+}
