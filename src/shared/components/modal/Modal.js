@@ -5,7 +5,6 @@ import { usePlaylist } from "../../../context/playlist/playlistContext";
 import {
   addVideoToPlaylistApi,
   createPlaylistApi,
-  deleteVideosFromPlaylistApi,
 } from "../../../services/playlist_services";
 import "./modal.css";
 
@@ -46,10 +45,11 @@ export const Modal = () => {
       }
       return false;
     } else {
-      const { data, success } = deleteVideosFromPlaylist(
+      const { success } = deleteVideosFromPlaylist(
         playlist._id,
         clickedVideos._id
       );
+      //NEED TO SHOW TOAST HERE
     }
   };
 

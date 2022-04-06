@@ -27,7 +27,7 @@ export const PlaylistVideos = ({
       playlistVideos = playlist.videos;
     }
   }
-  console.log(playlistId);
+ 
   return (
     <div className="playlist-videos-container">
       <div className="playlist-videos-content-container">

@@ -25,7 +25,6 @@ const PlaylistVideosContextProvider = ({ children }) => {
   useEffect(() => {
     (async function () {
       const { data, success } = await playlistVideosFetchApi();
-      console.log(data);
       if (success) {
         dispatch({
           type: "GET_VIDEOS",
