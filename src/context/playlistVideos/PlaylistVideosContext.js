@@ -25,7 +25,6 @@ const PlaylistVideosContextProvider = ({ children }) => {
   useEffect(() => {
     (async function () {
       const { data, success } = await playlistVideosFetchApi();
-      console.log(data);
       if (success) {
         dispatch({
           type: "GET_VIDEOS",
@@ -33,7 +32,6 @@ const PlaylistVideosContextProvider = ({ children }) => {
             watchLater: data.watchLater,
             history: data.history,
             likes: data.likes,
-            playlists: data.playlists
           },
         });
       }
@@ -51,8 +49,10 @@ const PlaylistVideosContextProvider = ({ children }) => {
     }
   };
 
-  const deleteAllVideosFromHistory = () => {
-    const { data, success } = deleteAllVideosFromHistoryApi();
+
+  const deleteAllVideosFromHistory = async() => {
+    const { data, success } = await deleteAllVideosFromHistoryApi();
+
     if (success) {
       dispatch({
         type: "UPDATE_PLAYLIST_VIDEOS",

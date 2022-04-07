@@ -3,16 +3,21 @@ import "./videoCard.css";
 import {
   BsThreeDotsVertical,
   MdWatchLater,
-  BsCollectionPlayFill,AiFillLike
+  BsCollectionPlayFill,
+  AiFillLike,
 } from "../../../assets/icons";
 import { useExplore } from "../../../context/explore/ExploreContext";
 import ReactPlayer from "react-player";
 import { DropDown } from "../dropDown/Dropdown";
 import { usePlaylistVideos } from "../../../context/playlistVideos/PlaylistVideosContext";
+import {Modal} from "../../../shared/components/modal/Modal"
+import { useModal } from "../../../context/modal/modalContext";
 
 export const VideoCard = (video) => {
   const { _id, title, description, creator, views, releaseDate } = video;
-  const { updatePlaylistVideos, isVideoPresent,handleOnPlay } = usePlaylistVideos();
+  const { isVideoPresent, handleOnPlay, updatePlaylistVideos } =
+    usePlaylistVideos();
+  const { showModal, setShowModal, setClickedVideos } = useModal();
 
   const options = [
     {
@@ -48,17 +53,27 @@ export const VideoCard = (video) => {
     },
   ];
 
-  const addToPlaylist = () => {};
+
+
   const handleDropDown = async (value) => {
-    value === "playlist"
-      ? await addToPlaylist(video)
-      : await updatePlaylistVideos(value, video);
-    dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
+    if (value === "playlist") {
+      setShowModal(!showModal);
+      setClickedVideos(video);
+    } else {
+      await updatePlaylistVideos(value, video);
+      dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
+    }
+
   };
 
   const { selectedDropdownId, dispatch } = useExplore();
+  const {setSelectedVideoId} = useModal();
   return (
-    <div className="video-card-container flex-col" >
+
+
+    <div className="video-card-container flex-col">
+      <Modal videoId = {_id}/>
+
       <div className="video-wrapper">
         <ReactPlayer
           className="react-player"
@@ -75,6 +90,7 @@ export const VideoCard = (video) => {
           <BsThreeDotsVertical
             className="three-dots-icon"
             onClick={() => {
+              setSelectedVideoId(_id);
               dispatch({
                 type: "UPDATE_DROPDOWN",
                 payload: { id: _id === selectedDropdownId ? null : _id },

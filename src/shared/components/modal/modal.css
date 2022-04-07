@@ -1,0 +1,42 @@
+.hotstream-modal-container {
+  width: 250px;
+  min-height: 130px;
+  background-color: #1e1e1e;
+}
+.modal-wrapper {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.1);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.playlist-modal-container {
+  border-bottom: 4px solid var(--secondary-color);
+}
+.hotstream-modal-heading,
+.hotstream-cross-icon {
+  font-size: 1.2rem;
+}
+.playlist-input{
+    padding: 0.4rem;
+}
+.playlist-button{
+    color:var(--pink-color);
+    border:2px solid var(--pink-color);
+    background-color: var(--modal-button-bg)
+}
+.hotstream-cross-icon:hover{
+    background-color: var(--dark-color);
+}
+.playlists-container{
+  border-bottom: 4px solid var(--secondary-color);
+  
+}
+.playlists-content-container,.playlist-content{
+  width: 100%;
+}

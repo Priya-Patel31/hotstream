@@ -10,7 +10,6 @@ const AuthContextProvider = ({ children }) => {
     token: "",
     user: null,
   };
-console.log(user);
   const [{ isUserloggedIn, token }, dispatch] = useReducer(
     reducer,
     intialState
@@ -22,7 +21,6 @@ console.log(user);
       email,
       password
     });
-    console.log(data); 
     if (success) {
       dispatch({
         type: "UPDATE_USER",
@@ -32,7 +30,6 @@ console.log(user);
           user: data.createdUser,
         },
       });
-      console.log(data);
       return true;
     }
     return false;
@@ -49,7 +46,6 @@ console.log(user);
           user: data.foundUser,
         },
       });
-      console.log(data);
       return true;
     }
     return false;

@@ -36,22 +36,22 @@ export const playlistVideosFetchApi = async () => {
       url: "/api/user/history",
       method: "get",
     });
-    const promise4 = await fetchApi({
-      url: "/api/user/playlists",
-      method: "get",
-    });
-
-    const response = await Promise.all([promise1, promise2, promise3,promise4]);
-    console.log(response)
+    
+    const response = await Promise.all([
+      promise1,
+      promise2,
+      promise3,
+    ]);
+  
     return {
       data: {
         watchLater: response[0].data.watchlater,
         likes: response[1].data.likes,
-        history: response[2].data.history,
-        playlists : response[3].playlists
+        history: response[2].data.history
+        
       },
-      success : true,
-      message : "Fetched successfully"
+      success: true,
+      message: "Fetched successfully",
     };
   } catch (e) {
     console.log(e);
