@@ -6,31 +6,41 @@ import { Explore } from "./pages/explore/explore";
 import { WithHeader } from "./shared/components/withHeader/WithHeader";
 import Mockman from "./mockMan";
 import { WatchLater } from "./pages/watchLater/WatchLater";
-import {Login} from "./pages/auth/Login"
-import {Signup} from "./pages/auth/Signup"
+import { History } from "./pages/history/History";
+import { Playlists } from "./pages/playlists/Playlists";
+import { Likes } from "./pages/likes/Likes";
+import { Login } from "./pages/auth/Login";
+import { Signup } from "./pages/auth/Signup";
 import { useAuth } from "./context/auth/authContext";
-function App() { 
-  const {isUserLoggedIn} = useAuth();
+import { Modal } from "./shared/components/modal/Modal";
+import { PlaylistVideos } from "./pages/playlistVideos/PlaylistVideos";
+import { PageNotFound } from "./shared/components/404NotFound/pageNotFound";
+function App() {
+  const { isUserLoggedIn } = useAuth();
   return (
     <div className="App">
+      <Modal />
       <Routes>
-      <Route path="mockApi" element={<Mockman />}></Route>
+        <Route path="mockApi" element={<Mockman />}></Route>
         <Route path="/" element={<WithHeader />}>
-          
           <Route path="/" element={<Home />}>
+            <Route path="*" element={<PageNotFound />} />
             <Route index element={<HeroSection />} />
             <Route path="explore" element={<Explore />} />
             <Route path="watchlater" element={<WatchLater />} />
+            <Route path="playlists" element={<Playlists />} />
+            <Route path="likes" element={<Likes />} />
+            <Route path="history" element={<History />} />
+            <Route path="playlists/:playlistId" element={<PlaylistVideos />} />
           </Route>
         </Route>
-        
+
         {!isUserLoggedIn && (
-         <>
+          <>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
-       </>
-         )}
-       
+          </>
+        )}
       </Routes>
     </div>
   );

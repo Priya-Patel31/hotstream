@@ -28,7 +28,7 @@ export const Sidebar = () => {
         <BsCollectionPlayFill className="mr-1 sidebar-item-icon" />
         <span className="sidebar-content">Playlists</span>
       </NavLink>
-      <NavLink to="/like" className={getClassName}>
+      <NavLink to="/likes" className={getClassName}>
         <AiFillLike className="mr-1 sidebar-item-icon" />
         <span className="sidebar-content">Likes</span>
       </NavLink>

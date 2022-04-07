@@ -20,12 +20,12 @@ const ExploreContextProvider = ({ children }) => {
     videos: [],
     categories: [],
     selectedCategory: "All",
-    selectedDropdownId : null
+    selectedDropdownId: null,
   };
-  const [{ videos, categories, selectedCategory,selectedDropdownId }, dispatch] = useReducer(
-    reducer,
-    intialState
-  );
+  const [
+    { videos, categories, selectedCategory, selectedDropdownId },
+    dispatch,
+  ] = useReducer(reducer, intialState);
 
   const getFilteredVideos = (videos) => {
     if (selectedCategory === "All") return videos;
@@ -39,7 +39,14 @@ const ExploreContextProvider = ({ children }) => {
 
   return (
     <ExploreContext.Provider
-      value={{ videos, categories, selectedCategory, dispatch, filteredVideos ,selectedDropdownId}}
+      value={{
+        videos,
+        categories,
+        selectedCategory,
+        dispatch,
+        filteredVideos,
+        selectedDropdownId,
+      }}
     >
       {children}
     </ExploreContext.Provider>

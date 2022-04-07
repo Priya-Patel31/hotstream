@@ -4,16 +4,20 @@ import {
   BsThreeDotsVertical,
   MdWatchLater,
   BsCollectionPlayFill,
+  AiFillLike,
 } from "../../../assets/icons";
 import { useExplore } from "../../../context/explore/ExploreContext";
 import ReactPlayer from "react-player";
 import { DropDown } from "../dropDown/Dropdown";
-import { useWatchLater } from "../../../context/watchLater/WatchLaterContext";
+import { usePlaylistVideos } from "../../../context/playlistVideos/PlaylistVideosContext";
+import {Modal} from "../../../shared/components/modal/Modal"
+import { useModal } from "../../../context/modal/modalContext";
 
 export const VideoCard = (video) => {
-
   const { _id, title, description, creator, views, releaseDate } = video;
-  const { updateWatchLater ,isVideoPresentInWatchLater} = useWatchLater();
+  const { isVideoPresent, handleOnPlay, updatePlaylistVideos } =
+    usePlaylistVideos();
+  const { showModal, setShowModal, setClickedVideos } = useModal();
 
   const options = [
     {
@@ -27,29 +31,50 @@ export const VideoCard = (video) => {
     {
       item: (
         <div>
-          <MdWatchLater className="mr-1" /> {!isVideoPresentInWatchLater(_id) ? "Add to watch later":"Remove from watch later"}
+          <MdWatchLater className="mr-1" />{" "}
+          {!isVideoPresent("watchLater", _id)
+            ? "Add to watch later"
+            : "Remove from watch later"}
         </div>
       ),
       value: "watchLater",
     },
+
+    {
+      item: (
+        <div>
+          <AiFillLike className="mr-1" />{" "}
+          {!isVideoPresent("likes", _id)
+            ? "Add to liked videos"
+            : "Remove from liked videos"}
+        </div>
+      ),
+      value: "likes",
+    },
   ];
-  
-  const addToPlaylist = () => {};
-  const handleDropDown = async(value) => {
-    value === "playlist" ? await addToPlaylist(video) : await updateWatchLater(video);
-    dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
+
+  const handleDropDown = async (value) => {
+    if (value === "playlist") {
+      setShowModal(!showModal);
+      setClickedVideos(video);
+    } else {
+      await updatePlaylistVideos(value, video);
+      dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
+    }
   };
 
   const { selectedDropdownId, dispatch } = useExplore();
+  const {setSelectedVideoId} = useModal();
   return (
     <div className="video-card-container flex-col">
+      <Modal videoId = {_id}/>
       <div className="video-wrapper">
         <ReactPlayer
           className="react-player"
           url={`https://www.youtube.com/watch?v=${_id}`}
           width="100%"
           height="100%"
-          light={false}
+          onPlay={() => handleOnPlay("history", video)}
         />
 
         <div className="video-badge">{views}M views</div>
@@ -60,6 +85,7 @@ export const VideoCard = (video) => {
           <BsThreeDotsVertical
             className="three-dots-icon"
             onClick={() => {
+              setSelectedVideoId(_id);
               dispatch({
                 type: "UPDATE_DROPDOWN",
                 payload: { id: _id === selectedDropdownId ? null : _id },
