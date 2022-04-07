@@ -17,7 +17,7 @@ const intialState = {
   status: "IDLE",
   watchLater: [],
   history: [],
-  likes: []
+  likes: [],
 };
 const PlaylistVideosContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, intialState);
@@ -49,8 +49,10 @@ const PlaylistVideosContextProvider = ({ children }) => {
     }
   };
 
+
   const deleteAllVideosFromHistory = async() => {
     const { data, success } = await deleteAllVideosFromHistoryApi();
+
     if (success) {
       dispatch({
         type: "UPDATE_PLAYLIST_VIDEOS",

@@ -37,7 +37,6 @@ export const playlistVideosFetchApi = async () => {
       method: "get",
     });
     
-
     const response = await Promise.all([
       promise1,
       promise2,
@@ -99,4 +98,5 @@ export const deleteAllVideosFromHistoryApi = async () => {
     method: "delete",
   });
 };
+
 

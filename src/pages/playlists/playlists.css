@@ -35,6 +35,7 @@
 @media only screen and (max-width: 600px) {
   .playlists-wrapper {
     grid-template-columns: 16.25rem;
+
   
   }
 }

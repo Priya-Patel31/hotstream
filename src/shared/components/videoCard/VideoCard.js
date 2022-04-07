@@ -53,6 +53,8 @@ export const VideoCard = (video) => {
     },
   ];
 
+
+
   const handleDropDown = async (value) => {
     if (value === "playlist") {
       setShowModal(!showModal);
@@ -61,20 +63,23 @@ export const VideoCard = (video) => {
       await updatePlaylistVideos(value, video);
       dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
     }
+
   };
 
   const { selectedDropdownId, dispatch } = useExplore();
   const {setSelectedVideoId} = useModal();
   return (
+
+
     <div className="video-card-container flex-col">
       <Modal videoId = {_id}/>
+
       <div className="video-wrapper">
         <ReactPlayer
           className="react-player"
           url={`https://www.youtube.com/watch?v=${_id}`}
           width="100%"
-          height="100%"
-          onPlay={() => handleOnPlay("history", video)}
+          height="100%" onPlay={()=>handleOnPlay("history",video)}
         />
 
         <div className="video-badge">{views}M views</div>

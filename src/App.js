@@ -31,7 +31,7 @@ function App() {
             <Route path="playlists" element={<Playlists />} />
             <Route path="likes" element={<Likes />} />
             <Route path="history" element={<History />} />
-            <Route path="playlists/:playlistId" element={<PlaylistVideos />} />
+             <Route path="playlists/:playlistId" element={<PlaylistVideos />} />
           </Route>
         </Route>
 

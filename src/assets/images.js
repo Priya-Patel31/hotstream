@@ -7,5 +7,3 @@ import  pageNotFound  from "./images/404PageNotFound.svg"
 
 export {WatchLaterImage,Playlist,SignupImage,SigninImage,emptyCart,pageNotFound};
 
-
-

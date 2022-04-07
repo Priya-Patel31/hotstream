@@ -27,7 +27,7 @@ export const PlaylistVideos = ({
       playlistVideos = playlist.videos;
     }
   }
- 
+
   return (
     <div className="playlist-videos-container">
       <div className="playlist-videos-content-container">
@@ -66,6 +66,7 @@ export const PlaylistVideos = ({
               No videos in this playlist yet😅
             </div>
           )}
+
           {playlistVideos?.map((video) => {
             return (
               <li key={video?._id} className="stacked-list-item">
