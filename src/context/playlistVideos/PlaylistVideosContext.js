@@ -43,7 +43,6 @@ const PlaylistVideosContextProvider = ({ children }) => {
   }, []);
   const handleOnPlay = async (playlistId, video) => {
     const { data, success } = await addToHistoryApi(video);
-
     if (success) {
       dispatch({
         type: "UPDATE_PLAYLIST_VIDEOS",
@@ -121,6 +120,7 @@ const PlaylistVideosContextProvider = ({ children }) => {
       toast.success(toastMessage);
     } else {
       toast.error("Something went wrong");
+
     }
   };
 

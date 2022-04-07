@@ -33,6 +33,7 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
         <Route path="/" element={<WithHeader />}>
           <Route path="/" element={<Home />}>
+            <Route path="*" element={<PageNotFound />} />
             <Route index element={<HeroSection />} />
             <Route path="explore" element={<Explore />} />
             <Route

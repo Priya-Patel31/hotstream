@@ -11,6 +11,7 @@ import ReactPlayer from "react-player";
 import { DropDown } from "../dropDown/Dropdown";
 import { usePlaylistVideos } from "../../../context/playlistVideos/PlaylistVideosContext";
 import { Modal } from "../../../shared/components/modal/Modal";
+
 import { useModal } from "../../../context/modal/modalContext";
 
 export const VideoCard = (video) => {
@@ -18,7 +19,6 @@ export const VideoCard = (video) => {
   const { isVideoPresent, handleOnPlay, updatePlaylistVideos } =
     usePlaylistVideos();
   const { showModal, setShowModal, setClickedVideos } = useModal();
-
 
   const options = [
     {
@@ -70,9 +70,13 @@ export const VideoCard = (video) => {
 
   const { selectedDropdownId, dispatch } = useExplore();
   const { setSelectedVideoId } = useModal();
+
   return (
+
+
     <div className="video-card-container flex-col">
       <Modal videoId={_id} />
+
       <div className="video-wrapper">
         <ReactPlayer
           className="react-player"
@@ -80,6 +84,7 @@ export const VideoCard = (video) => {
           width="100%"
           height="100%"
           onPlay={() => handleOnPlay("history", video)}
+
         />
 
         <div className="video-badge">{views}M views</div>

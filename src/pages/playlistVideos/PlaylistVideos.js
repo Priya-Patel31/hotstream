@@ -1,3 +1,4 @@
+
 import {
   WatchLaterImage,
   MdDelete,
@@ -13,18 +14,21 @@ import {
 } from "./index";
 import "./playlistVideos.css";
 
+
 export const PlaylistVideos = ({
   playlistId = null,
   playlistTitle,
   playlistVideos,
   isFromPlaylist = false,
 }) => {
+
   useEffect(() => {
     changeDocumentTitle("Hotstream-playlist");
   }, []);
 
   const { updatePlaylistVideos, deleteAllVideosFromHistory } =
     usePlaylistVideos();
+
 
   const { state, deleteVideosFromPlaylist, deletePlaylist } = usePlaylist();
   const params = useParams();
@@ -63,10 +67,12 @@ export const PlaylistVideos = ({
                 } else {
                   toast.error("Something went wrong");
                 }
+
               }}
             />
           )}
           {playlistId === "history" && (
+
             <button
               className="button primary-button-pink"
               onClick={() => {
@@ -85,6 +91,7 @@ export const PlaylistVideos = ({
               No videos in this playlist yet😅
             </div>
           )}
+
           {playlistVideos?.map((video) => {
             return (
               <li key={video?._id} className="stacked-list-item">
@@ -126,6 +133,7 @@ export const PlaylistVideos = ({
                           } else {
                             toast.error("Something went wrong");
                           }
+
                         } else {
                           updatePlaylistVideos(playlistId, video);
                         }

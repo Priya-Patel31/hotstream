@@ -7,6 +7,7 @@ export const History = () => {
   useEffect(()=>{
     changeDocumentTitle("Hotstream-history")
   },[])
+
   const { state, deleteVideo, deleteAllVideosFromHistory } =
     usePlaylistVideos();
   return (

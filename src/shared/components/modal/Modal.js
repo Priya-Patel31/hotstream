@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+
 import { AiOutlineClose, BsCollectionPlayFill } from "../../../assets/icons";
 import { useModal } from "../../../context/modal/modalContext";
 import { usePlaylist } from "../../../context/playlist/playlistContext";
@@ -19,7 +20,9 @@ export const Modal = () => {
 
   const handleCreatePlaylist = async (title, description) => {
     if (title === "") {
+
       toast.error("title cannot be empty");
+
       return;
     }
 
@@ -34,6 +37,7 @@ export const Modal = () => {
       toast.success(`${title} playlist created`);
     } else {
       toast.error("Something went wrong");
+
     }
   };
 
@@ -48,6 +52,7 @@ export const Modal = () => {
         toast.success(`Video added to ${playlist.title}`);
       }
       toast.error("Something went wrong");
+
     } else {
       const { success } = deleteVideosFromPlaylist(
         playlist._id,
@@ -58,6 +63,7 @@ export const Modal = () => {
       } else {
         toast.error("Something went wrong");
       }
+
     }
   };
 
