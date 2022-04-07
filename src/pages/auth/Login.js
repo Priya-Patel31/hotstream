@@ -1,27 +1,35 @@
-import React, { useState } from "react";
-import { Link, useNavigate,useLocation } from "react-router-dom";
-import { AuthContainer } from "../auth/component/AuthContainer";
-import { SigninImage } from "../../assets/images";
 import {
+  React,
+  useState,
+  useEffect,
+  Link,
+  useLocation,
+  useNavigate,
+  AuthContainer,
+  SigninImage,
   BsFillEyeFill,
   FaEnvelope,
   AiOutlineArrowRight,
   BsFillEyeSlashFill,
-} from "../../assets/icons";
-
-import { useAuth } from "../../context/auth/authContext";
-
+  useAuth,
+  changeDocumentTitle,
+  toast,
+} from "./index";
+import "./auth.css"
 
 export const Login = () => {
+  useEffect(() => {
+    changeDocumentTitle("Hotstream-login");
+  }, []);
   const [showPassword, setShowPassword] = useState(false);
-  const {pathname} = useLocation();
-  
+  const { pathname } = useLocation();
+
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    rememberMe : false
+    rememberMe: false,
   });
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -31,17 +39,23 @@ export const Login = () => {
     e.preventDefault();
     const success = await login({ email, password });
     if (success) {
-      if(pathname === "/signup"){
+      if (pathname === "/signup") {
         navigate("/");
-      }else{
+      } else {
         navigate(-1);
       }
+      toast.success("Login successful");
+    } else {
+      toast.error("Wrong credentials");
     }
   };
 
   return (
     <AuthContainer title="Login" imageUrl={SigninImage}>
-      <form className="signup-form-container flex-col">
+      <form
+        className="signup-form-container flex-col"
+        onSubmit={(e) => loginHandler(e, formData.email, formData.password)}
+      >
         <ul>
           <li className="list-style-none text-xs">
             <div className="email-field-container">
@@ -55,9 +69,7 @@ export const Login = () => {
                 type="email"
                 placeholder="priya@gmail.com"
                 value={formData.email}
-                onChange={
-                  handleOnChange
-                }
+                onChange={handleOnChange}
                 required
               />
               <FaEnvelope className="email-icon text-xs"></FaEnvelope>
@@ -97,8 +109,13 @@ export const Login = () => {
           <li className="list-style-none">
             <div className="flex-row align-center justify-between mt-1">
               <div className="flex-row align-center my-2">
-                <input type="checkbox" id="terms" onChange={handleOnChange}/>
-                <label className="text-xs ml-1 text-white" htmlFor="terms" >
+                <input
+                  type="checkbox"
+                  id="terms"
+                  checked={formData.rememberMe}
+                  onChange={handleOnChange}
+                />
+                <label className="text-xs ml-1 text-white" htmlFor="terms">
                   Remember me
                 </label>
               </div>
@@ -112,8 +129,8 @@ export const Login = () => {
           </li>
         </ul>
         <button
+          type="submit"
           className="button primary-button-pink my-2 text-xs"
-          onClick={(e) => loginHandler(e, formData.email, formData.password)}
         >
           Login
         </button>

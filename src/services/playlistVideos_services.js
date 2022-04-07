@@ -36,20 +36,14 @@ export const playlistVideosFetchApi = async () => {
       url: "/api/user/history",
       method: "get",
     });
-    
 
-    const response = await Promise.all([
-      promise1,
-      promise2,
-      promise3,
-    ]);
-  
+    const response = await Promise.all([promise1, promise2, promise3]);
+
     return {
       data: {
         watchLater: response[0].data.watchlater,
         likes: response[1].data.likes,
-        history: response[2].data.history
-        
+        history: response[2].data.history,
       },
       success: true,
       message: "Fetched successfully",
@@ -99,4 +93,3 @@ export const deleteAllVideosFromHistoryApi = async () => {
     method: "delete",
   });
 };
-

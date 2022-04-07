@@ -22,9 +22,7 @@
   --modal-button-bg:rgba(0, 0, 0, 0.6);
   --toastify-toast-background: black;
   --toastify-text-color-info: #fff;
-  --toastify-text-color-success: rgb(89, 222, 18);
-  --toastify-text-color-warning: #fff;
-  --toastify-text-color-error: rgb(236, 16, 16);
+  
 }
 *{
   box-sizing: border-box;

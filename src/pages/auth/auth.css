@@ -62,7 +62,9 @@ input:focus + label,
 input:not(:placeholder-shown) + label {
   transform: none;
 }
-
+.authentication-image-container{
+  width: 50%;
+}
 @media only screen and (max-width: 550px) {
   .authentication-details-container {
     display: flex;

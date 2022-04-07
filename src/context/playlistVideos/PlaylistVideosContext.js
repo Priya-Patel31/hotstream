@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
+import { toast } from "react-toastify";
 import {
   playlistVideosFetchApi,
   addToWatchLaterApi,
@@ -17,7 +18,7 @@ const intialState = {
   status: "IDLE",
   watchLater: [],
   history: [],
-  likes: []
+  likes: [],
 };
 const PlaylistVideosContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, intialState);
@@ -34,32 +35,37 @@ const PlaylistVideosContextProvider = ({ children }) => {
             likes: data.likes,
           },
         });
+        toast.success("Vidos fetched successfully");
+      } else {
+        toast.error("Something went wrong");
       }
     })();
   }, []);
   const handleOnPlay = async (playlistId, video) => {
     const { data, success } = await addToHistoryApi(video);
-   
+
     if (success) {
       dispatch({
         type: "UPDATE_PLAYLIST_VIDEOS",
         payload: { playlistId, videos: data.history },
       });
-
+      return true;
+    } else {
+      return false;
     }
   };
 
-  const deleteAllVideosFromHistory = async() => {
+  const deleteAllVideosFromHistory = async () => {
     const { data, success } = await deleteAllVideosFromHistoryApi();
     if (success) {
       dispatch({
         type: "UPDATE_PLAYLIST_VIDEOS",
         payload: { playlistId: "history", videos: data.history },
       });
-      return true;
+      toast.success("All videos deleted from history");
+    } else {
+      toast.error("Something went wrong");
     }
-
-    return false;
   };
 
   const isVideoPresent = (playlistId, _id) => {
@@ -72,31 +78,33 @@ const PlaylistVideosContextProvider = ({ children }) => {
     const isVideoAlreadyPresent = isVideoPresent(playlistId, video._id);
     let videos = [],
       success = false;
-     
-    switch (playlistId) {
 
+    switch (playlistId) {
       case "watchLater":
-        const { data: data1, success: videoSuccess } = !isVideoAlreadyPresent
-          ? await addToWatchLaterApi({ ...video, addedAt: date })
-          : await deleteFromWatchLaterApi(video._id);
-        videos = data1.watchlater;
-        success = videoSuccess;
+        const { data: dataWatchlater, success: watchLaterSuccess } =
+          !isVideoAlreadyPresent
+            ? await addToWatchLaterApi({ ...video, addedAt: date })
+            : await deleteFromWatchLaterApi(video._id);
+        videos = dataWatchlater.watchlater;
+        success = watchLaterSuccess;
         break;
 
       case "history":
-        const { data: data2, success: success2 } = !isVideoAlreadyPresent
-          ? await addToHistoryApi({ ...video, addedAt: date })
-          : await deleteFromHistoryApi(video._id);
-        videos = data2.history;
-        success = success2;
+        const { data: dataHistory, success: historySuccess } =
+          !isVideoAlreadyPresent
+            ? await addToHistoryApi({ ...video, addedAt: date })
+            : await deleteFromHistoryApi(video._id);
+        videos = dataHistory.history;
+        success = historySuccess;
         break;
 
       case "likes":
-        const { data: data3, success: success3 } = !isVideoAlreadyPresent
-          ? await addToLikesApi({ ...video, addedAt: date })
-          : await deleteFromLikesApi(video._id);
-        videos = data3.likes;
-        success = success3;
+        const { data: dataLikes, success: likesSuccess } =
+          !isVideoAlreadyPresent
+            ? await addToLikesApi({ ...video, addedAt: date })
+            : await deleteFromLikesApi(video._id);
+        videos = dataLikes.likes;
+        success = likesSuccess;
         break;
 
       default:
@@ -107,6 +115,12 @@ const PlaylistVideosContextProvider = ({ children }) => {
         type: "UPDATE_PLAYLIST_VIDEOS",
         payload: { playlistId, videos },
       });
+      const toastMessage = `Video ${
+        isVideoAlreadyPresent ? "deleted from" : "added to"
+      } ${playlistId}`;
+      toast.success(toastMessage);
+    } else {
+      toast.error("Something went wrong");
     }
   };
 
@@ -118,7 +132,7 @@ const PlaylistVideosContextProvider = ({ children }) => {
         isVideoPresent,
         dispatch,
         deleteAllVideosFromHistory,
-        handleOnPlay
+        handleOnPlay,
       }}
     >
       {children}

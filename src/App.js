@@ -1,37 +1,80 @@
+import {
+  Home,
+  HeroSection,
+  Route,
+  Routes,
+  ToastContainer,
+  Explore,
+  WatchLater,
+  WithHeader,
+  Mockman,
+  History,
+  Playlists,
+  Likes,
+  Login,
+  Signup,
+  useAuth,
+  Modal,
+  PlaylistVideos,
+  PageNotFound,
+  PrivateRoute,
+} from "./appImports";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import { Home } from "./pages/home/Home";
-import { HeroSection } from "./pages/home/components/heroSection/HeroSection";
-import { Routes, Route } from "react-router-dom";
-import { Explore } from "./pages/explore/explore";
-import { WithHeader } from "./shared/components/withHeader/WithHeader";
-import Mockman from "./mockMan";
-import { WatchLater } from "./pages/watchLater/WatchLater";
-import { History } from "./pages/history/History";
-import { Playlists } from "./pages/playlists/Playlists";
-import { Likes } from "./pages/likes/Likes";
-import { Login } from "./pages/auth/Login";
-import { Signup } from "./pages/auth/Signup";
-import { useAuth } from "./context/auth/authContext";
-import { Modal } from "./shared/components/modal/Modal";
-import { PlaylistVideos } from "./pages/playlistVideos/PlaylistVideos";
-import { PageNotFound } from "./shared/components/404NotFound/pageNotFound";
+
 function App() {
   const { isUserLoggedIn } = useAuth();
   return (
     <div className="App">
+      <ToastContainer theme="colored" />
       <Modal />
       <Routes>
         <Route path="mockApi" element={<Mockman />}></Route>
+        <Route path="*" element={<PageNotFound />} />
         <Route path="/" element={<WithHeader />}>
           <Route path="/" element={<Home />}>
-            <Route path="*" element={<PageNotFound />} />
             <Route index element={<HeroSection />} />
             <Route path="explore" element={<Explore />} />
-            <Route path="watchlater" element={<WatchLater />} />
-            <Route path="playlists" element={<Playlists />} />
-            <Route path="likes" element={<Likes />} />
-            <Route path="history" element={<History />} />
-            <Route path="playlists/:playlistId" element={<PlaylistVideos />} />
+            <Route
+              path="watchlater"
+              element={
+                <PrivateRoute>
+                  <WatchLater />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="playlists"
+              element={
+                <PrivateRoute>
+                  <Playlists />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="likes"
+              element={
+                <PrivateRoute>
+                  <Likes />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="history"
+              element={
+                <PrivateRoute>
+                  <History />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="playlists/:playlistId"
+              element={
+                <PrivateRoute>
+                  <PlaylistVideos />
+                </PrivateRoute>
+              }
+            />
           </Route>
         </Route>
 

@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
+import {
+  React,
+  useEffect,
+  VideoCard,
+  Filter,
+  useExplore,
+  changeDocumentTitle,
+} from "./index";
 import "./explore.css";
-import { VideoCard } from "../../shared/components/videoCard/VideoCard";
-import { Filter } from "./components/filter/Filter";
-import { useExplore } from "../../context/explore/ExploreContext";
 
 export const Explore = () => {
   const { filteredVideos, dispatch } = useExplore();
@@ -14,6 +18,9 @@ export const Explore = () => {
       });
     };
   }, [dispatch]);
+  useEffect(() => {
+    changeDocumentTitle("Hotstream-Explore");
+  });
   return (
     <div className="explore-container">
       <div className="flex-col">
