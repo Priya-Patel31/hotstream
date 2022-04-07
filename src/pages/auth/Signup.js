@@ -1,17 +1,25 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { SignupImage } from "../../assets/images";
-import { AuthContainer } from "./component/AuthContainer";
-import { useAuth } from "../../context/auth/authContext";
-import "./auth.css";
 import {
+  React,
+  useState,
+  useEffect,
+  Link,
+  useNavigate,
+  SignupImage,
+  AuthContainer,
+  useAuth,
   BsFillEyeFill,
-  FaEnvelope,
-  AiOutlineArrowRight,
   BsFillEyeSlashFill,
-} from "../../assets/icons";
+  AiOutlineArrowRight,
+  FaEnvelope,
+  changeDocumentTitle,
+  toast,
+} from "./index";
+import "./auth.css"
 
 export const Signup = () => {
+  useEffect(() => {
+    changeDocumentTitle("Hotstream-Signup");
+  }, []);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -28,12 +36,18 @@ export const Signup = () => {
     e.preventDefault();
     const success = await signup(formData);
     if (success) {
+      toast.success("Signup successful");
       navigate("/");
+    } else {
+      toast.error("Wrong credentials");
     }
   };
   return (
     <AuthContainer title="Signup" imageUrl={SignupImage}>
-      <form className="signup-form-container flex-col">
+      <form
+        className="signup-form-container flex-col"
+        onSubmit={(e) => handleOnClick}
+      >
         <ul>
           <li className="list-style-none text-xs">
             <div className="email-field-container">
@@ -117,8 +131,8 @@ export const Signup = () => {
           </li>
         </ul>
         <button
+          type="submit"
           className="button primary-button-pink my-2 text-xs"
-          onClick={handleOnClick}
         >
           Create New Account
         </button>

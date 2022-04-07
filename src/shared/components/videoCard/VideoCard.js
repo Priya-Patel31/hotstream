@@ -10,7 +10,8 @@ import { useExplore } from "../../../context/explore/ExploreContext";
 import ReactPlayer from "react-player";
 import { DropDown } from "../dropDown/Dropdown";
 import { usePlaylistVideos } from "../../../context/playlistVideos/PlaylistVideosContext";
-import {Modal} from "../../../shared/components/modal/Modal"
+import { Modal } from "../../../shared/components/modal/Modal";
+
 import { useModal } from "../../../context/modal/modalContext";
 
 export const VideoCard = (video) => {
@@ -53,33 +54,37 @@ export const VideoCard = (video) => {
     },
   ];
 
-
-
   const handleDropDown = async (value) => {
-    if (value === "playlist") {
-      setShowModal(!showModal);
-      setClickedVideos(video);
-    } else {
-      await updatePlaylistVideos(value, video);
-      dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
-    }
-
+   
+      if (value === "playlist") {
+        setShowModal(!showModal);
+        setClickedVideos(video);
+      } else {
+        const { success } = await updatePlaylistVideos(value, video);
+        if (success) {
+          dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
+        }
+      }
+   
   };
 
   const { selectedDropdownId, dispatch } = useExplore();
-  const {setSelectedVideoId} = useModal();
+  const { setSelectedVideoId } = useModal();
+
   return (
 
 
     <div className="video-card-container flex-col">
-      <Modal videoId = {_id}/>
+      <Modal videoId={_id} />
 
       <div className="video-wrapper">
         <ReactPlayer
           className="react-player"
           url={`https://www.youtube.com/watch?v=${_id}`}
           width="100%"
-          height="100%" onPlay={()=>handleOnPlay("history",video)}
+          height="100%"
+          onPlay={() => handleOnPlay("history", video)}
+
         />
 
         <div className="video-badge">{views}M views</div>

@@ -10,7 +10,6 @@ import { PlaylistVideosContextProvider } from "./context/playlistVideos/Playlist
 import { ModalContextProvider } from "./context/modal/modalContext";
 import { PlaylistContextProvider } from "./context/playlist/playlistContext";
 
-
 makeServer();
 ReactDOM.render(
   <React.StrictMode>

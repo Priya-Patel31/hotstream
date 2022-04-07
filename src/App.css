@@ -22,15 +22,13 @@
   --modal-button-bg:rgba(0, 0, 0, 0.6);
   --toastify-toast-background: black;
   --toastify-text-color-info: #fff;
-  --toastify-text-color-success: rgb(89, 222, 18);
-  --toastify-text-color-warning: #fff;
-  --toastify-text-color-error: rgb(236, 16, 16);
+  
 }
 *{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montshttps://github.com/Priya-Patel31/hotstream/pull/9/conflict?name=src%252FApp.css&ancestor_oid=0a835a972292bdd18f48bb29e3c736740a31dfd0&base_oid=9b1ca69f4053be93646c85a3218a5017ea45be5c&head_oid=c42a7fa6b3ba9a0b269b29f694e5ebb60b708d15errat', sans-serif;
   font-weight: 500;
 }
 body{

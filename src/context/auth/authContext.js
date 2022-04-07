@@ -20,7 +20,8 @@ const AuthContextProvider = ({ children }) => {
       lastName,
       email,
       password
-    });
+    }); 
+
     if (success) {
       dispatch({
         type: "UPDATE_USER",

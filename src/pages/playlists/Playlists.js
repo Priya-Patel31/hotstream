@@ -1,10 +1,20 @@
-import { Playlist } from "../../assets/images";
-import { Link } from "react-router-dom";
-import { usePlaylist } from "../../context/playlist/playlistContext";
+
+import {
+  useEffect,
+  Playlist,
+  Link,
+  usePlaylist,
+  EmptyList,
+  changeDocumentTitle,
+} from "./index";
 import "./playlists.css";
-import { EmptyList } from "../../shared/components/emptyList/EmptyList";
 
 export const Playlists = () => {
+  useEffect(() => {
+    changeDocumentTitle("Hotstream-playlists");
+  }, []);
+
+
   const { state } = usePlaylist();
   const playlistsVideo = state.playlists;
   return (

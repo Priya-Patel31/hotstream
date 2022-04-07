@@ -1,10 +1,19 @@
-import { WatchLaterImage } from "../../assets/images";
-import { MdDelete, AiOutlineClockCircle } from "../../assets/icons";
-import ReactPlayer from "react-player";
-import { useNavigate, useParams } from "react-router";
+
+import {
+  WatchLaterImage,
+  MdDelete,
+  AiOutlineClockCircle,
+  ReactPlayer,
+  useNavigate,
+  useParams,
+  usePlaylistVideos,
+  usePlaylist,
+  changeDocumentTitle,
+  useEffect,
+  toast,
+} from "./index";
 import "./playlistVideos.css";
-import { usePlaylistVideos } from "../../context/playlistVideos/PlaylistVideosContext";
-import { usePlaylist } from "../../context/playlist/playlistContext";
+
 
 export const PlaylistVideos = ({
   playlistId = null,
@@ -12,7 +21,15 @@ export const PlaylistVideos = ({
   playlistVideos,
   isFromPlaylist = false,
 }) => {
-  const { updatePlaylistVideos,deleteAllVideosFromHistory } = usePlaylistVideos();
+
+  useEffect(() => {
+    changeDocumentTitle("Hotstream-playlist");
+  }, []);
+
+  const { updatePlaylistVideos, deleteAllVideosFromHistory } =
+    usePlaylistVideos();
+
+
   const { state, deleteVideosFromPlaylist, deletePlaylist } = usePlaylist();
   const params = useParams();
   const navigate = useNavigate();
@@ -43,19 +60,27 @@ export const PlaylistVideos = ({
             <MdDelete
               className="text-white text-sm"
               onClick={() => {
-                deletePlaylist(playlistId);
-                navigate(-1);
+                const { success } = deletePlaylist(playlistId);
+                if (success) {
+                  toast.success(`${playlistTitle} deleted`);
+                  navigate(-1);
+                } else {
+                  toast.error("Something went wrong");
+                }
+
               }}
             />
           )}
           {playlistId === "history" && (
-            
-            <button className="button primary-button-pink" onClick={()=>{
-              deleteAllVideosFromHistory();
-            }}>
+
+            <button
+              className="button primary-button-pink"
+              onClick={() => {
+                deleteAllVideosFromHistory();
+              }}
+            >
               Clear All
             </button>
-       
           )}
         </div>
       </div>
@@ -99,7 +124,16 @@ export const PlaylistVideos = ({
                       className="delete-icon text-white"
                       onClick={async () => {
                         if (isFromPlaylist) {
-                          await deleteVideosFromPlaylist(playlistId, video._id);
+                          const { success } = await deleteVideosFromPlaylist(
+                            playlistId,
+                            video._id
+                          );
+                          if (success) {
+                            toast.success(`Videos deleted from ${playlistId} `);
+                          } else {
+                            toast.error("Something went wrong");
+                          }
+
                         } else {
                           updatePlaylistVideos(playlistId, video);
                         }
