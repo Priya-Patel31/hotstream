@@ -10,7 +10,7 @@ export const HeroSection = () => {
         alt="hero-img"
         className="hero-image"
       />
-      <div className="text-overlay-container">
+      <div className="overlay-text-container">
         <h1 className="overlay-text">
           IT'S TIME TO <span className="explore-text">EXPLORE</span> <br /> THE
           WORLD

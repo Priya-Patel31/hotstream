@@ -60,12 +60,11 @@ export const VideoCard = (video) => {
         setShowModal(!showModal);
         setClickedVideos(video);
       } else {
-        const { success } = await updatePlaylistVideos(value, video);
+        const  success  = await updatePlaylistVideos(value, video);
         if (success) {
           dispatch({ type: "UPDATE_DROPDOWN", payload: { id: null } });
         }
       }
-   
   };
 
   const { selectedDropdownId, dispatch } = useExplore();

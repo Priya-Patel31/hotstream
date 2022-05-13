@@ -50,8 +50,10 @@ export const Modal = () => {
       if (success) {
         dispatch({ type: "ADD_VIDEOS", payload: { playlist: data.playlist } });
         toast.success(`Video added to ${playlist.title}`);
+      }else{
+        toast.error("Something went wrong");
       }
-      toast.error("Something went wrong");
+  
 
     } else {
       const { success } = deleteVideosFromPlaylist(

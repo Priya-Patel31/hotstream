@@ -59,13 +59,14 @@ export const PlaylistVideos = ({
           {isFromPlaylist && (
             <MdDelete
               className="text-white text-sm"
-              onClick={() => {
-                const { success } = deletePlaylist(playlistId);
+              onClick={async() => {
+                const  success  = await deletePlaylist(playlistId);
+                console.log(success);
                 if (success) {
                   toast.success(`${playlistTitle} deleted`);
                   navigate(-1);
                 } else {
-                  toast.error("Something went wrong");
+                  toast.error("Something went wrong delete");
                 }
 
               }}
@@ -124,14 +125,14 @@ export const PlaylistVideos = ({
                       className="delete-icon text-white"
                       onClick={async () => {
                         if (isFromPlaylist) {
-                          const { success } = await deleteVideosFromPlaylist(
+                          const  success  = await deleteVideosFromPlaylist(
                             playlistId,
                             video._id
                           );
                           if (success) {
-                            toast.success(`Videos deleted from ${playlistId} `);
+                            toast.success(`Videos deleted from playlist`);
                           } else {
-                            toast.error("Something went wrong");
+                            toast.error("Something went wrong video");
                           }
 
                         } else {
