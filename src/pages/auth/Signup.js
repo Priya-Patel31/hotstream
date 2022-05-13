@@ -14,7 +14,7 @@ import {
   changeDocumentTitle,
   toast,
 } from "./index";
-import "./auth.css"
+import "./auth.css";
 
 export const Signup = () => {
   useEffect(() => {
@@ -36,8 +36,8 @@ export const Signup = () => {
     e.preventDefault();
     const success = await signup(formData);
     if (success) {
-      toast.success("Signup successful");
       navigate("/");
+      toast.success("Signup successful");
     } else {
       toast.error("Wrong credentials");
     }

@@ -34,16 +34,12 @@ export const Login = () => {
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-
+ 
   const loginHandler = async (e, email, password) => {
     e.preventDefault();
     const success = await login({ email, password });
     if (success) {
-      if (pathname === "/signup") {
-        navigate("/");
-      } else {
-        navigate(-1);
-      }
+      navigate("/");
       toast.success("Login successful");
     } else {
       toast.error("Wrong credentials");

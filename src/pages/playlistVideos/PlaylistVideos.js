@@ -61,12 +61,11 @@ export const PlaylistVideos = ({
               className="text-white text-sm"
               onClick={async() => {
                 const  success  = await deletePlaylist(playlistId);
-                console.log(success);
                 if (success) {
                   toast.success(`${playlistTitle} deleted`);
                   navigate(-1);
                 } else {
-                  toast.error("Something went wrong delete");
+                  toast.error("Something went wrong");
                 }
 
               }}
@@ -132,7 +131,7 @@ export const PlaylistVideos = ({
                           if (success) {
                             toast.success(`Videos deleted from playlist`);
                           } else {
-                            toast.error("Something went wrong video");
+                            toast.error("Something went wrong");
                           }
 
                         } else {

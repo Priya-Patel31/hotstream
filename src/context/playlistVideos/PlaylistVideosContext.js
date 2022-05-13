@@ -35,10 +35,8 @@ const PlaylistVideosContextProvider = ({ children }) => {
             likes: data.likes,
           },
         });
-        toast.success("Vidos fetched successfully");
-      } else {
-        toast.error("Something went wrong");
-      }
+        toast.success("Videos fetched successfully");
+      } 
     })();
   }, []);
   const handleOnPlay = async (playlistId, video) => {
